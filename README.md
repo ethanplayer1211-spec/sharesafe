@@ -1,66 +1,68 @@
 ShareSafe
 
-A browser-local screenshot editor with automatic private-detail suggestions. Open an image, review the scan, apply solid covers, and export a flattened PNG.
+A browser-local screenshot editor. Scan for private details, review the suggestions, use plain black or strong blur, and export a flattened PNG.
 
 ![ShareSafe editor](preview.jpg)
 
-Quickest way to try it
+Try it
 
-Download **ShareSafe.html** and open it in a current desktop browser with WebAssembly SIMD support (current Chrome, Edge, Firefox or Safari). In the extracted source, **dist/index.html** is the same complete application. The roughly 9 MB HTML contains the editor, example, English OCR model and worker. No account, server, API key or network download is needed to scan.
-
-New images scan automatically. To test the bundled fictional example, click **Scan private details**. It starts with no pre-applied covers, so you can see the scan's suggestions and resulting changes. Choose **DM example** beside the screenshot selector for a fictional Instagram-style desktop conversation, or **Try filter example** in the footer for personal fields.
+- Download **ShareSafe.html** and open it in a current desktop browser. In the source archive, **dist/index.html** is the same self-contained application.
+- The roughly 9 MB HTML includes the editor, English OCR model, worker and examples. No account, API key or image upload is needed.
+- Open, paste or drop a PNG, JPG or WebP. New images scan automatically. Maximum 25 MB, 24 megapixels and 12,000 pixels per side.
+- Choose **DM example** for a fictional desktop conversation or **Try filter example** for personal fields.
 
 Using the editor
 
-- **Privacy filters:** eleven independent categories: names, usernames, message text, birthdays, personal info, profile photos, pictures, email/phone, credentials, payment cards and IP addresses. Change them before or after scanning; results update without another OCR pass. Applied covers stay in place.
-- **Scan:** bundled English OCR and local name recognition find likely names, @handles, labeled usernames/birthdays, address and ID fields, contact details, payment cards, IPs and credentials.
-- **Pictures / profile photos:** local color/texture analysis suggests image regions. Small avatar-like regions also use nearby name/username context. These are visual estimates, not face identification; inspect and resize their covers as needed.
-- **Extra words:** add specific names, usernames or phrases, separated by commas/new lines. They stay included even when other categories are off.
-- **Chat / DMs:** detects plain handles without an @, chat-header names, visible message text and conversation-list previews. Grayscale avatar boundaries are checked near the text. Auto mode looks for chat layout cues; choose **Chat / DMs** explicitly when needed.
-- **Set chat area:** drag around the conversation to constrain message detection. Reset area returns to automatic bounds. This changes suggestions without painting over the image.
-- **Clean fill:** the default uses a fully opaque color sampled from a uniform surrounding background. It keeps purple/gray message bubbles and page layout visible while hiding the text. Varied backgrounds fall back to ink. Solid ink, paper and coral remain available.
-- **Preview / Adjust:** inspect selected covers on an expanded canvas. Move them or drag a corner before applying. Cancel leaves applied edits unchanged. Names inferred without a label and generic picture estimates start unchecked. Applying a batch is one undo step.
-- **Redact (R):** draw additional opaque covers over anything the scan missed. Choose ink, paper or coral.
-- **Number (N):** add numbered pins for context.
-- **Select (V):** move edits or resize covers from a corner. Arrow keys nudge by one pixel; Shift moves ten.
-- **Undo/redo:** Ctrl/Command+Z and Ctrl/Command+Shift+Z. Ctrl/Command+Y also redoes. History retains up to 60 changes.
-- **Compare:** hold the eye button to view the original. Zoom or Fit as needed.
-- **Export:** check the full image, confirm the review box, and download a PNG at the original resolution. Uncovered scan suggestions produce a warning.
+- **Twelve privacy filters:** names, usernames, message text, birthdays, personal information, profile photos, pictures, email/phone, credentials, payment cards, work details and IP addresses.
+- **Two OCR passes:** a contrast-normalized copy helps colored chat bubbles; a second pass reads the original colors. Overlapping matches are merged. The scan surface is capped at eight megapixels; export retains the original dimensions.
+- **Chat / DMs:** layout checks find plain handles, message text and list previews. Auto mode also recognizes workspace chats. Set a conversation area when automatic bounds are wrong.
+- **Work details:** review likely domains, repository paths, channels and organizations. These may be public; they start unchecked.
+- **Extra words:** add names or phrases separated by commas/new lines. They remain included when other filters are off.
+- **Black:** the default, fully opaque cover replaces the selected pixels with true black.
+- **Blur:** a fixed strong blur is drawn into the exported PNG. It can retain visual clues; use Black for stronger concealment. Browsers without canvas-filter support use Black instead.
+- **All covers:** switching Black/Blur changes applied covers together and updates the pending preview. Style changes support undo/redo.
+- **Preview / Adjust:** inspect suggestions without applying them, move or resize their boxes, and reject mistakes. Inferred names, work details and generic picture estimates start unchecked.
+- **Redact (R):** draw a cover over anything missed. **Select (V)** moves/resizes edits; arrows nudge one source pixel and Shift moves ten. **Number (N)** adds pins.
+- **Undo/redo:** Ctrl/Command+Z and Ctrl/Command+Shift+Z; Ctrl/Command+Y also redoes. History retains up to 60 changes.
+- **Compare:** hold the eye button to see the original. **Export:** review the full image, confirm the review checkbox, then download the PNG.
 
-Open, paste or drop one PNG, JPG or WebP. Maximum 25 MB, 24 megapixels and 12,000 pixels per side. The scan surface is capped at six megapixels; export keeps the original dimensions.
+Five independently selected examples
 
-Privacy and limitations
+Open **docs/review-five/index.html** for Original, Black, Blur and full-size views. All five examples were approved by the project owner on 16 November 2026.
 
-The neural OCR model runs in a dedicated browser worker. Compromise provides bundled English name recognition; structured pattern checks find personal fields and other private text. A local image-region heuristic estimates picture and avatar areas. This is OCR-assisted detection, not a cloud language model or a model we trained.
+- Random seed: 8508867. Five distinct app types were sampled, then one screenshot per type, before testing: Arc, Slack, GitHub, Terminal and Cursor.
+- Source: Louis Beaumont's [ScreenLeak synthetic sample corpus](https://github.com/screenpipe/screenleak), commit 3670788846e99a64ae93128c0fa97f180f5825f6, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). All details are fictional. Modified copies were censored with ShareSafe.
+- The reviewed black exports passed pixel checks for 39 marked regions containing 82,326 visible private-detail pixels. Source annotation boxes were tightened to visible values; labels, separators and ellipses were excluded. This is a small workflow check, not a full ScreenLeak benchmark score.
+- GitHub needed one incorrect name suggestion rejected and a manual rectangle over profile icons. Cursor needed a manual rectangle over its status-bar workspace path. Arc, Slack and Terminal needed no additional manual rectangles with all filters enabled. An avatar in the Slack example is also covered by a message suggestion.
+- Both cover styles retain source dimensions, have opaque PNG pixels and omit source/undo attachments. Blur preserves pixels outside the corresponding black-mask areas.
+- The separate fictional DM regression covers five username occurrences, eight message lines/previews and six avatars. Its black export also preserved 1,017,398 pixels outside the allowed cover areas.
 
-Image bytes and recognized text stay in browser memory. No image upload, AI API, analytics, local storage, IndexedDB cache or automatic saved copy is used. CSP blocks application network connections with `connect-src 'none'`; a bundled Blob worker and WebAssembly compilation are permitted. Closing or reloading loses the editing session. Hosting the HTML still requires an ordinary request to the host.
+Privacy and limits
 
-**Review the whole screenshot.** English OCR can misread or miss text, especially small, rotated, low-contrast or unusual text. Contrast normalization helps white text on dark/colored chat bubbles. Chat detection is based on screenshot layout, not an understanding of which messages are private; the message filter hides all detected message text in the selected conversation area. Cropped layouts, unfamiliar UI, non-English text, image messages and emojis may need manual covers. Name recognition is English-focused; labeled names also support Unicode text. Birthdays need a birthday/DOB/born label. Addresses and other personal fields use patterns and labels, so contextless details may be missed. Picture/profile-photo regions can miss photos, confuse icons with photos, or cover only part of an image. QR codes and arbitrary sensitive messages are not reliably identified. A clean scan is not proof that an image is safe. Inspect the cover edges and add manual covers as needed.
+Image bytes and recognized text stay in memory. The app uses no AI API, analytics, local storage or IndexedDB image cache. CSP blocks application network connections; the bundled worker and WebAssembly run locally. Closing or reloading loses the editing session. Hosting the HTML requires an ordinary request to the host.
 
-The original remains in memory for editing and comparison. Export renders the source and applied opaque covers into a separate canvas. It omits dashed suggestions, editor controls, editable layers, original attachments and undo history. Cover edges round outward to whole pixels. Re-encoding does not carry source EXIF/text metadata into the new PNG. Information outside covers remains visible.
+English OCR, name recognition and layout/image heuristics can miss content or suggest incorrect regions. These are suggestions, not a safety verdict. Photos, cropped layouts, unfamiliar interfaces, non-English text, tiny text, emojis and unlabelled personal information may need manual covers. The user's own Instagram screenshot has not been supplied or tested. Always inspect the full-resolution result and the cover edges.
 
-Development and checks
+The original stays in memory for editing and comparison. Export paints the source and applied covers into a separate canvas, without editor overlays, original attachments, editable layers or undo history. Cover boundaries round outward to whole pixels. Source EXIF/text metadata is not carried into the new PNG. Details outside covers remain visible.
 
-The full modular source is in **ShareSafe-source.zip**. The distributed HTML runs without installation. To rebuild after editing `src/editor.html` or JavaScript/CSS in `dist/`, use Node.js 20 or later:
+Build and checks
+
+The modular source is in **ShareSafe-source.zip**. Use Node.js 20 or later:
 
 ```sh
 npm ci --ignore-scripts
 npm run build
 npm run check
 npm test
+node tools/check-review-coverage.mjs
+node tools/check-style-exports.mjs
 npm run dev
 ```
 
-The optional server opens at `http://127.0.0.1:4173/`. Windows users can use `Start ShareSafe.cmd`. All three HTML entry files are identical and self-contained; code and styles are protected by CSP hashes.
-
-Twenty-seven tests cover editing geometry, history, opaque export rendering, structured-detail matching, OCR word-to-image coordinates, split OCR blocks, offline assets and CSP hashes. The earlier browser QA found both structured private details in the inbox and all six expected details in a separate fictional fixture. The v1.2 filter example adds names, a username, birthday, personal fields, an illustrated avatar and a textured picture. The v1.3 fictional DM fixture covers plain usernames, six grayscale avatars, and incoming/outgoing message text. Selective application, undo/redo, cancel, automatic import scanning and phone-width review were exercised. This small fixture check is not a general accuracy benchmark.
-
-For the DM fixture, `node tools/verify-dm-export.mjs "path/to/DM example-sharesafe.png"` checks private glyph/photo pixels against the sampled opaque fill and verifies that over a million pixels outside the allowed cover areas remain identical. `node tools/check-dm-scan.mjs dist/dm-example.png 2` exercises the actual local OCR model on the fictional fixture. Earlier browser exports were independently decoded with `tools/verify-ocr-export.mjs`: 1280 × 800, 4,510 changed pixels in the two intended regions, all opaque ink; no dashed preview marks or text/EXIF metadata. `tools/verify-example-export.mjs` is retained as a historical check for the earlier manual example. More evidence and limits are in `docs/VALIDATION.md`.
+The optional server runs at http://127.0.0.1:4173/; Windows users can use **Start ShareSafe.cmd**. The three HTML entry files are identical and self-contained. Thirty-one tests cover geometry/history, cover fallback, OCR matching/merging, chat layout, filters, offline assets and CSP hashes. Browser checks exercised import, preview cancellation, apply, undo/redo, style switching and download. Evidence and limits are in **docs/VALIDATION.md** and **docs/review-five/**.
 
 Implementation and credits
 
-Vanilla HTML/CSS/JavaScript, Canvas 2D, a pinned Tesseract.js 7.0.0 worker/core with the existing English LSTM model, and Compromise 14.20.0 for local name recognition. The offline builder embeds dependencies; no paid service is needed. Third-party licenses are in **THIRD_PARTY_NOTICES.txt** and embedded in each HTML file.
+Vanilla HTML/CSS/JavaScript, Canvas 2D, pinned Tesseract.js 7.0.0 and its existing English LSTM model, and Compromise 14.20.0. The models/components were not trained for this project. Application development and examples used significant assistance from OpenAI Codex. Licenses are in **THIRD_PARTY_NOTICES.txt** and the HTML.
 
-ShareSafe's application code and fictional example were created for this project with significant assistance from OpenAI Codex. The OCR engine, model and their dependencies are existing open-source components, not original model training.
-
-The repository includes a captioned demo made from actual app captures. It has not been uploaded to YouTube; that upload awaits the owner's review and approval.
+The 60-second silent, captioned demo uses actual editor captures and exported PNGs. YouTube upload awaits the owner's separate video approval.
