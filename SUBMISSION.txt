@@ -1,0 +1,11 @@
+ShareSafe · submitted to IceHacks
+
+Devpost confirmed “Project submitted!” on 16 November 2026 (Malaysia).
+
+Project: https://devpost.com/software/sharesafe-dkie2v
+Repository: https://github.com/ethanplayer1211-spec/sharesafe
+Narrated demo (Unlisted): https://youtu.be/eIxXrQU1TpQ
+
+All five reviewed screenshot examples were approved by the user. The narrated demo, Unlisted upload, channel setup and final rules/terms agreement were separately approved. The final check passed before submission.
+
+The entry contains a public GitHub repository, the offline application/source, project description and embedded demo. Development assistance and third-party components are disclosed. The application still requires users to review and correct OCR/layout suggestions.
