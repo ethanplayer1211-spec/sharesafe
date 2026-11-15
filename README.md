@@ -1,67 +1,60 @@
 ShareSafe
 
-A browser-local screenshot editor. Open an image, cover private details with solid rectangles, add numbered pins, and export a flattened, full-resolution PNG.
+A browser-local screenshot editor with automatic private-detail suggestions. Open an image, review the scan, apply solid covers, and export a flattened PNG.
 
 ![ShareSafe editor](preview.jpg)
 
 Quickest way to try it
 
-Download **ShareSafe.html** from this repository and open it in a current browser. In the extracted source, you can also double-click **dist/index.html**. Both files contain the complete application and fictional example, with no server, install, account or external assets required. Code and styles are protected by Content Security Policy hashes.
+Download **ShareSafe.html** and open it in a current desktop browser with WebAssembly SIMD support (current Chrome, Edge, Firefox or Safari). In the extracted source, **dist/index.html** is the same complete application. The roughly 8 MB HTML contains the editor, example, English OCR model and worker. No account, server, API key or network download is needed to scan.
 
-The development source is also provided as **ShareSafe-source.zip**. Extract it to inspect the separate source files, tests and tools. After editing the template in `src/editor.html` or the shared JavaScript/CSS files in `dist/`, run `npm run build` to regenerate all three HTML entry files.
-
-The repository also includes **ShareSafe-demo.mp4**, a 48-second captioned walkthrough made from actual editor captures. All example details are fictional.
-
-Optional local server
-
-Use a recent Node.js version (20 or later). There are no runtime dependencies and no install step. On Windows, double-click `Start ShareSafe.cmd`, then open the address it prints. Or run:
-
-```sh
-npm run dev
-```
-
-Open `http://127.0.0.1:4173/`. `dist/` is also ready for any static web host.
+New images scan automatically. To test the bundled fictional example, click **Scan private details**. It starts with no pre-applied covers, so you can see the scan's suggestions and resulting changes.
 
 Using the editor
 
-- Open, paste, or drop one PNG, JPG, or WebP. Maximum 25 MB, 24 megapixels, and 12,000 pixels per side.
-- **Redact (R):** drag a rectangle. Ink, paper and coral are all opaque cover colors.
-- **Number (N):** click to place a pin. Pins renumber when one is deleted.
-- **Select (V):** click an edit to move it. Drag a cover's corner to resize it. Arrow keys nudge a selected edit by one pixel; Shift moves ten pixels.
-- **Delete:** use the toolbar trash button, edit list or Delete/Backspace key.
-- **Undo/redo:** Ctrl/Command+Z and Ctrl/Command+Shift+Z. Ctrl/Command+Y also redoes. The history retains up to 60 changes.
-- **Compare:** hold the eye button, or hold Space/Enter while that button is focused. It temporarily displays the unedited source.
-- **Zoom:** use +/− and Fit. Scroll the workspace when zoomed in.
-- **Export:** review the image, check the review box, and download a PNG at the source dimensions.
+- **Scan:** local English text recognition suggests emails, formatted/labeled phone numbers, IPv4 addresses, Luhn-valid payment cards, common API-token prefixes, and labeled passwords/private workspace codes.
+- **Review:** numbered dashed boxes show the suggestions. Inspect the image, select individual suggestions, then choose **Cover selected**. Suggestions do not become covers until applied. Applying a batch is one undo step. Cancel stops the worker immediately.
+- **Redact (R):** draw additional opaque covers over anything the scan missed. Choose ink, paper or coral.
+- **Number (N):** add numbered pins for context.
+- **Select (V):** move edits or resize covers from a corner. Arrow keys nudge by one pixel; Shift moves ten.
+- **Undo/redo:** Ctrl/Command+Z and Ctrl/Command+Shift+Z. Ctrl/Command+Y also redoes. History retains up to 60 changes.
+- **Compare:** hold the eye button to view the original. Zoom or Fit as needed.
+- **Export:** check the full image, confirm the review box, and download a PNG at the original resolution. Uncovered scan suggestions produce a warning.
 
-All fictional example content and artwork were created for this project. The bundled example starts with two covers and one pin; Undo removes those sample edits.
+Open, paste or drop one PNG, JPG or WebP. Maximum 25 MB, 24 megapixels and 12,000 pixels per side. The scan surface is capped at six megapixels; export keeps the original dimensions.
 
-Privacy and export behavior
+Privacy and limitations
 
-Image bytes stay in browser memory. There is no image upload, server processing, analytics, external font, OCR, or AI API in the application. The document's Content Security Policy blocks application fetch/WebSocket connections (`connect-src 'none'`). Hosting the application still requires normal requests for its static files and may have a host-level access gate.
+The neural OCR model runs in a dedicated browser worker. Structured pattern checks convert recognized text into suggested covers. This is OCR-assisted detection, not a cloud language model or a model we trained.
 
-The editor retains the original in memory for undo and comparison. It creates a **separate canvas** for export: an opaque white background, decoded source image, opaque rectangular covers, then numbered pins. Cover edges round outward to whole pixels. The exported PNG has no editable layers, original image attachment, editor controls, or undo history. Re-encoding does not carry the original file's EXIF/text metadata into the new PNG.
+Image bytes and recognized text stay in browser memory. No image upload, AI API, analytics, local storage, IndexedDB cache or automatic saved copy is used. CSP blocks application network connections with `connect-src 'none'`; a bundled Blob worker and WebAssembly compilation are permitted. Closing or reloading loses the editing session. Hosting the HTML still requires an ordinary request to the host.
 
-No local storage, database, image history, or automatic saved copy is created. Closing/reloading the tab loses its editing session. A replacement/close warning protects unexported edits where the browser supports it. The download itself is saved by the browser at the user's request.
+**Review the whole screenshot.** English OCR can misread or miss text, especially small, rotated, low-contrast or unusual text. Names, postal addresses, faces, QR codes and arbitrary sensitive messages are not automatically identified. A clean scan is not proof that an image is safe. Inspect the cover edges and add manual covers as needed.
 
-**Manual review is required.** The app does not detect private information or guarantee that the user has covered everything. Information remaining visible outside covers remains visible in the export. It cannot protect the unedited original, other files, clipboard copies, screen recordings, or screenshots made while comparing. Only share the exported PNG after reviewing it.
+The original remains in memory for editing and comparison. Export renders the source and applied opaque covers into a separate canvas. It omits dashed suggestions, editor controls, editable layers, original attachments and undo history. Cover edges round outward to whole pixels. Re-encoding does not carry source EXIF/text metadata into the new PNG. Information outside covers remains visible.
 
-Checks
+Development and checks
+
+The full modular source is in **ShareSafe-source.zip**. The distributed HTML runs without installation. To rebuild after editing `src/editor.html` or JavaScript/CSS in `dist/`, use Node.js 20 or later:
 
 ```sh
+npm ci --ignore-scripts
+npm run build
 npm run check
 npm test
-node tools/verify-example-export.mjs "path/to/A little example-sharesafe.png"
+npm run dev
 ```
 
-Nine tests cover editing geometry, history, export behavior, and the offline build. The build checks ensure the default HTML has no external module fetches and that its inline code and styles match the Content Security Policy hashes.
+The optional server opens at `http://127.0.0.1:4173/`. Windows users can use `Start ShareSafe.cmd`. All three HTML entry files are identical and self-contained; code and styles are protected by CSP hashes.
 
-The final command verifies an actual export of the untouched bundled example. It independently decodes PNG filters with Node's standard library, checks all 9,894 pixels in both sample cover regions for the exact opaque ink color, checks source dimensions, and rejects EXIF/text chunks. This is a fixture check, not an automatic privacy scan for arbitrary images.
+Thirteen tests cover editing geometry, history, opaque export rendering, structured-detail matching, OCR word-to-image coordinates, split OCR blocks, offline assets and CSP hashes. Browser QA found both private details in the bundled example and all six expected details in a separate fictional fixture. Selective application, undo/redo, cancel, automatic import scanning and phone-width review were exercised. This small fixture check is not a general accuracy benchmark.
 
-Browser QA and its limits are recorded in `docs/VALIDATION.md`.
+The browser exports were independently decoded with `tools/verify-ocr-export.mjs`: 1280 × 800, 4,510 changed pixels in the two intended regions, all opaque ink; no dashed preview marks or text/EXIF metadata. `tools/verify-example-export.mjs` is retained as a historical check for the earlier manual example. More evidence and limits are in `docs/VALIDATION.md`.
 
-Implementation
+Implementation and credits
 
-Vanilla HTML/CSS/JavaScript, Canvas 2D, File/Clipboard events, Pointer Events, Blob PNG export, and Node's built-in test runner. `dist/core.js` owns geometry, history and the shared preview/export renderer; `dist/app.js` owns the editor workflow. No framework, build step, paid service or API key is required.
+Vanilla HTML/CSS/JavaScript, Canvas 2D and a pinned Tesseract.js 7.0.0 worker/core with the existing English LSTM model. The offline builder embeds dependencies; no paid service is needed. Third-party licenses are in **THIRD_PARTY_NOTICES.txt** and embedded in each HTML file.
 
-This is a new project, written with significant assistance from OpenAI Codex. No pre-existing application code, media, models or dependencies were reused.
+ShareSafe's application code and fictional example were created for this project with significant assistance from OpenAI Codex. The OCR engine, model and their dependencies are existing open-source components, not original model training.
+
+The repository includes a captioned demo made from actual app captures. It has not been uploaded to YouTube; that upload awaits the owner's review and approval.
