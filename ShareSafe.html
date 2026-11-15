@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Keep the moment. Hide the details. Redact and annotate screenshots in your browser, then export a flattened PNG.">
   <meta name="theme-color" content="#f6f5f1">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'sha256-fPyU3QMfc6EXuxwOqVYYUuJ6AsDdN/glRGxogTy3QwU='; style-src 'sha256-WWhllT4pVhOUVhr9rgg2BRzYRCvRzEboL+qXoV+2ZHU='; img-src 'self' blob: data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'sha256-g4HQO3r35H2yX7q2d76BnJAJ2PGWED+Yu2qri6Hczls='; style-src 'sha256-WWhllT4pVhOUVhr9rgg2BRzYRCvRzEboL+qXoV+2ZHU='; img-src 'self' blob: data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
   <title>ShareSafe — Screenshot editor</title>
   <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MCA0MCI+PHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iMTEiIGZpbGw9IiNlNjZjNGYiLz48cGF0aCBkPSJNMTAgMTBoOXY5aC05em0xMSAwaDl2OWgtOXpNMTAgMjFoOXY5aC05eiIgZmlsbD0iI2ZmZmFmNCIvPjxwYXRoIGQ9Ik0yMSAyMWg5djloLTl6IiBmaWxsPSIjMjkyZDJhIi8+PC9zdmc+Cg==" type="image/svg+xml">
   <style>@charset "UTF-8";
@@ -22,7 +22,98 @@
 @media(max-width:720px){.site-header{height:66px}.intro{padding:24px 4px 20px}h1{font-size:36px;letter-spacing:-1.3px}.intro>div>p{font-size:11px}.studio{height:auto}.sidebar-block.source-block{padding:14px}.sidebar-block:nth-child(2){padding:10px 11px}.tool{padding:7px 5px;min-height:40px}.tool strong{font-size:11px}.file-card strong{font-size:10px;max-width:105px}.file-card div>span{font-size:9px}.upload-button{font-size:10px;margin-top:0}.color-setting{margin:10px 6px 0;font-size:10px}.workspace-toolbar{height:47px}.document-title strong{font-size:10px;max-width:118px}.tool-tip{font-size:9px}.export-strip{padding:14px 12px}.export-strip strong{font-size:10px}.export-button{font-size:11px}.export-label{font-size:7px}footer{font-size:9px}footer button{font-size:9px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;scroll-behavior:auto!important}}
 </style>
-  <script type="module">const COLORS = Object.freeze({ ink: '#20252b', paper: '#faf9f6', coral: '#e66c4f' });
+  
+</head>
+<body>
+  <svg class="icon-defs" aria-hidden="true"><defs>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4m-5 5 5-5 5 5M4 15v5h16v-5"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 5v2"/></symbol>
+    <symbol id="i-cover" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="1" fill="currentColor" stroke="none"/><path d="M7 3H3v3m14-3h4v3M3 18v3h4m14-3v3h-4"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m10 9 2-1v8m-2 0h4"/></symbol>
+    <symbol id="i-pointer" viewBox="0 0 24 24"><path d="m5 3 14 10-7 1-3 7Z"/></symbol>
+    <symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 6 4 11l5 5m-5-5h10a6 6 0 0 1 6 6"/></symbol>
+    <symbol id="i-redo" viewBox="0 0 24 24"><path d="m15 6 5 5-5 5m5-5H10a6 6 0 0 0-6 6"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 6h16M9 6V3h6v3M6 6l1 15h10l1-15M10 10v7m4-7v7"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.5"/><path d="m3 17 6-6 5 5 3-3 4 4"/></symbol>
+    <symbol id="i-cross" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6Z"/><path d="m8 12 3 3 5-6"/></symbol>
+  </defs></svg>
+
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="ShareSafe home"><span class="brand-mark"><i></i><i></i><i></i><i></i></span>sharesafe<span class="brand-dot">.</span></a>
+    <span class="header-divider"></span><span class="header-caption">Screenshot privacy editor</span>
+    <div class="header-right"><span class="local-pill"><span></span>Local processing</span><button class="text-button" id="help-button">How it works <svg><use href="#i-arrow"/></svg></button></div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <div><div class="eyebrow"><span class="tiny-square"></span>SHARESAFE</div><h1>Redact screenshots<span>.</span></h1><p>Hide private details. Add numbered pins. Export a PNG.</p></div>
+      <div class="intro-note"><svg><use href="#i-shield"/></svg><p>Your image is processed in this tab.<br><strong>PNG, JPG and WebP · up to 25 MB</strong></p></div>
+    </section>
+
+    <section class="studio" aria-label="Screenshot editor">
+      <aside class="sidebar">
+        <div class="sidebar-block source-block">
+          <div class="section-label"><span>IMAGE</span></div>
+          <button class="upload-button" id="upload-button"><svg><use href="#i-upload"/></svg><span>Open a screenshot</span><span class="small-plus">+</span></button>
+          <p class="helper">or drop it anywhere · <kbd>Ctrl</kbd> + <kbd>V</kbd></p>
+          <input id="file-input" type="file" accept="image/png,image/jpeg,image/webp" hidden>
+          <div class="file-card"><span class="file-icon"><svg><use href="#i-image"/></svg></span><div><strong id="file-name">Example screenshot.png</strong><span id="file-meta">1280 × 800 · example image</span></div><span class="file-dot"></span></div>
+        </div>
+
+        <div class="sidebar-block">
+          <div class="section-label"><span>TOOLS</span></div>
+          <div class="tool-stack" role="group" aria-label="Editing tools">
+            <button class="tool active" data-tool="redact" aria-pressed="true"><span class="tool-symbol"><svg><use href="#i-cover"/></svg></span><span><strong>Redact</strong><small>Draw a solid cover</small></span><kbd>R</kbd></button>
+            <button class="tool" data-tool="marker" aria-pressed="false"><span class="tool-symbol"><svg><use href="#i-pin"/></svg></span><span><strong>Number</strong><small>Add a numbered pin</small></span><kbd>N</kbd></button>
+            <button class="tool" data-tool="select" aria-pressed="false"><span class="tool-symbol"><svg><use href="#i-pointer"/></svg></span><span><strong>Select & move</strong><small>Move or resize an edit</small></span><kbd>V</kbd></button>
+          </div>
+          <div class="color-setting"><span>Cover color</span><div class="swatches" role="group" aria-label="Redaction color"><button class="swatch selected" data-color="ink" aria-label="Ink" aria-pressed="true"></button><button class="swatch" data-color="paper" aria-label="Paper" aria-pressed="false"></button><button class="swatch" data-color="coral" aria-label="Coral" aria-pressed="false"></button></div></div>
+          <p class="solid-note"><svg><use href="#i-lock"/></svg>Solid color covers</p>
+        </div>
+
+        <div class="sidebar-block edits-block">
+          <div class="edits-heading"><div class="section-label"><span>EDITS</span></div><span class="count-badge" id="edit-count">0</span></div>
+          <div id="edit-list" class="edit-list" aria-label="Edits"></div>
+          <p id="empty-edits" class="empty-edits">Draw a cover or add a numbered pin.</p>
+          <button id="clear-button" class="clear-button" disabled>Clear all edits</button>
+        </div>
+
+        <div class="privacy-card"><span class="privacy-icon"><svg><use href="#i-lock"/></svg></span><div><strong>No image uploads</strong><p>Edits stay in this tab until you export.</p></div></div>
+      </aside>
+
+      <div class="workbench">
+        <div class="workspace-toolbar">
+          <div class="document-title"><span class="document-dot"></span><strong id="document-name">Your canvas</strong><span id="example-badge" class="example-badge">EXAMPLE</span></div>
+          <div class="toolbar-actions"><button class="icon-button" id="undo-button" aria-label="Undo" title="Undo (Ctrl+Z)" disabled><svg><use href="#i-undo"/></svg></button><button class="icon-button" id="redo-button" aria-label="Redo" title="Redo (Ctrl+Shift+Z)" disabled><svg><use href="#i-redo"/></svg></button><button class="icon-button" id="delete-selected" aria-label="Delete selected edit" title="Delete selected edit" disabled><svg><use href="#i-trash"/></svg></button><span class="toolbar-divider"></span><button id="compare-button" class="compare-button" aria-label="Hold to compare"><svg><use href="#i-eye"/></svg><span>Hold to compare</span></button></div>
+        </div>
+
+        <div class="canvas-viewport" id="viewport">
+          <div class="canvas-surface" id="surface"><div class="image-frame" id="image-frame"><canvas id="editor-canvas" tabindex="0" aria-label="Screenshot editing canvas. Use Redact and drag to cover an area, or Number and click to add an annotation."></canvas><span id="original-label" class="original-label" hidden>ORIGINAL · RELEASE TO RETURN</span></div></div>
+          <div class="drop-curtain" id="drop-curtain" hidden><span class="drop-icon"><svg><use href="#i-upload"/></svg></span><strong>Drop an image here</strong><span>PNG, JPG or WebP · up to 25 MB</span></div>
+        </div>
+
+        <div class="workspace-bottom"><span class="tool-tip" id="tool-tip"><svg><use href="#i-cover"/></svg>Drag a box over anything private.</span><div class="zoom-controls"><button id="zoom-out" aria-label="Zoom out">−</button><span id="zoom-label">Fit</span><button id="zoom-in" aria-label="Zoom in">+</button><span></span><button class="fit-button" id="fit-button" title="Fit image to workspace">Fit</button></div></div>
+        <div class="export-strip"><div><span class="export-label">EXPORT</span><strong id="export-summary">Original resolution · PNG</strong></div><button class="export-button" id="export-button">Export PNG <svg><use href="#i-download"/></svg></button></div>
+      </div>
+    </section>
+
+    <footer><span>Review the full image before sharing.</span><div><span class="footer-dot"></span>Browser-local editing<span class="footer-separator">/</span>Full-resolution PNG<span class="footer-separator">/</span><button id="example-button">Try the example <span>↗</span></button></div></footer>
+  </main>
+
+  <dialog id="help-dialog"><button class="dialog-close icon-button" data-close aria-label="Close help"><svg><use href="#i-cross"/></svg></button><span class="eyebrow">HOW IT WORKS</span><h2>Edit and export</h2><ol class="help-steps"><li><b>Open an image</b><span>Choose a PNG, JPG or WebP, drop it here, or paste it with Ctrl/⌘+V.</span></li><li><b>Cover and annotate</b><span>Drag to redact. Click to number. Use Select to move an edit or resize a cover from a corner.</span></li><li><b>Review and export</b><span>Hold Compare to check the original. Export saves a full-resolution PNG with the covers flattened into the image.</span></li></ol><p class="dialog-note">ShareSafe does not detect private details automatically. Review the whole image before sharing. Your edits stay in this tab and are lost when it closes.</p><button class="dark-button" data-close>Start editing <svg><use href="#i-arrow"/></svg></button></dialog>
+
+  <dialog id="export-dialog"><button class="dialog-close icon-button" data-close aria-label="Close export"><svg><use href="#i-cross"/></svg></button><div class="export-check"><svg><use href="#i-check"/></svg></div><span class="eyebrow">EXPORT PNG</span><h2>Review your image</h2><p>Check names, messages, addresses and other private details before downloading.</p><div class="export-details"><div><span>Image size</span><strong id="review-size"></strong></div><div><span>Your edits</span><strong id="review-edits"></strong></div><div><span>Format</span><strong>PNG · flattened pixels</strong></div></div><label class="review-checkbox"><input type="checkbox" id="review-checkbox">I’ve checked the image for private details.</label><button class="dark-button" id="download-button" disabled>Download PNG <svg><use href="#i-download"/></svg></button><p class="fine-print">The PNG has no original file or undo history attached.</p></dialog>
+
+  <dialog id="replace-dialog"><button class="dialog-close icon-button" data-close aria-label="Cancel replacement"><svg><use href="#i-cross"/></svg></button><span class="eyebrow">A FRESH CANVAS</span><h2>Switch images?</h2><p>Your current edits will be cleared. Export first if you want to keep this version.</p><div class="dialog-button-row"><button class="secondary-button" data-close>Keep editing</button><button class="dark-button" id="confirm-replace">Open new image</button></div></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script>(() => {
+'use strict';
+const COLORS = Object.freeze({ ink: '#20252b', paper: '#faf9f6', coral: '#e66c4f' });
 const LIMITS = Object.freeze({ bytes: 25 * 1024 * 1024, pixels: 24_000_000, side: 12000 });
 const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 
@@ -475,94 +566,7 @@ window.addEventListener('beforeunload', event => {
   if (!state.example && state.shapes.length && JSON.stringify(state.shapes) !== state.exported) { event.preventDefault(); event.returnValue = ''; }
 });
 loadImage("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjgwIiBoZWlnaHQ9IjgwMCIgdmlld0JveD0iMCAwIDEyODAgODAwIj4NCjxyZWN0IHdpZHRoPSIxMjgwIiBoZWlnaHQ9IjgwMCIgZmlsbD0iI2ZmZiIvPjxyZWN0IHdpZHRoPSIxMjgwIiBoZWlnaHQ9IjU3IiBmaWxsPSIjZmFmYWY4Ii8+PHBhdGggZD0iTTAgNTdIMTI4MCIgc3Ryb2tlPSIjZTdlOWU0Ii8+DQo8ZyBmaWxsPSIjZDNkN2NmIj48Y2lyY2xlIGN4PSIyNiIgY3k9IjI5IiByPSI1Ii8+PGNpcmNsZSBjeD0iNDQiIGN5PSIyOSIgcj0iNSIvPjxjaXJjbGUgY3g9IjYyIiBjeT0iMjkiIHI9IjUiLz48L2c+PHJlY3QgeD0iNDI3IiB5PSIxNiIgd2lkdGg9IjQyNyIgaGVpZ2h0PSIyNiIgcng9IjUiIGZpbGw9IiNlZmVmZWIiLz48dGV4dCB4PSI2NDAiIHk9IjM0IiBmaWxsPSIjOTY5ZDhlIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+bWFpbC5leGFtcGxlLmNvbSAvIGluYm94PC90ZXh0Pg0KPHJlY3QgeT0iNTgiIHdpZHRoPSIxOTgiIGhlaWdodD0iNzQyIiBmaWxsPSIjZjhmOWY2Ii8+PHBhdGggZD0iTTE5OCA1N1Y4MDAiIHN0cm9rZT0iI2U5ZWNlNCIvPg0KPGcgZm9udC1mYW1pbHk9IkFyaWFsLHNhbnMtc2VyaWYiPjxnIGZpbGw9IiMzZTU2MzUiPjxyZWN0IHg9IjI1IiB5PSI4NyIgd2lkdGg9IjI1IiBoZWlnaHQ9IjIwIiByeD0iNSIvPjxwYXRoIGQ9Im0zMCA5MyA3IDUgOC01IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMS41Ii8+PHRleHQgeD0iNjEiIHk9IjEwMyIgZm9udC1zaXplPSIxOCIgZm9udC13ZWlnaHQ9IjcwMCI+cG9zdGJveDwvdGV4dD48L2c+DQo8cmVjdCB4PSIxOSIgeT0iMTM3IiB3aWR0aD0iMTU3IiBoZWlnaHQ9IjM5IiByeD0iNyIgZmlsbD0iI2U5ZWVlMiIvPjx0ZXh0IHg9IjQwIiB5PSIxNjIiIGZpbGw9IiM2ODdkNTAiIGZvbnQtc2l6ZT0iMTIiIGZvbnQtd2VpZ2h0PSI2MDAiPisgQ29tcG9zZTwvdGV4dD4NCjxyZWN0IHg9IjEzIiB5PSIyMDYiIHdpZHRoPSIxNzQiIGhlaWdodD0iMzYiIHJ4PSI1IiBmaWxsPSIjZWVmMWU4Ii8+PHRleHQgeD0iMzkiIHk9IjIyOSIgZmlsbD0iIzVjNmY0NyIgZm9udC1zaXplPSIxMiIgZm9udC13ZWlnaHQ9IjYwMCI+SW5ib3g8L3RleHQ+PHJlY3QgeD0iMTQ1IiB5PSIyMTUiIHdpZHRoPSIyMyIgaGVpZ2h0PSIxOCIgcng9IjUiIGZpbGw9IiNkY2U1Y2YiLz48dGV4dCB4PSIxNTYiIHk9IjIyOCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzc0ODc1YSIgZm9udC1zaXplPSIxMCI+ODwvdGV4dD4NCjxnIGZpbGw9IiM5NzlmOGMiIGZvbnQtc2l6ZT0iMTIiPjx0ZXh0IHg9IjM5IiB5PSIyNzMiPlN0YXJyZWQ8L3RleHQ+PHRleHQgeD0iMzkiIHk9IjMxNiI+U2VudDwvdGV4dD48dGV4dCB4PSIzOSIgeT0iMzU5Ij5EcmFmdHM8L3RleHQ+PHRleHQgeD0iMzkiIHk9IjQwMiI+QXJjaGl2ZTwvdGV4dD48L2c+PHBhdGggZD0iTTI5IDQ0MUgxNjciIHN0cm9rZT0iI2UwZTZkOCIvPjx0ZXh0IHg9IjM5IiB5PSI0ODEiIGZpbGw9IiNhOWIxOWYiIGZvbnQtc2l6ZT0iOSIgbGV0dGVyLXNwYWNpbmc9IjEuOCI+WU9VUiBMQUJFTFM8L3RleHQ+PGNpcmNsZSBjeD0iNDMiIGN5PSI1MTIiIHI9IjQiIGZpbGw9IiNkOWIyOGUiLz48dGV4dCB4PSI1NiIgeT0iNTE2IiBmaWxsPSIjOTM5Yjg3IiBmb250LXNpemU9IjExIj5Xb3JrIHRoaW5nczwvdGV4dD48Y2lyY2xlIGN4PSI0MyIgY3k9IjU0NiIgcj0iNCIgZmlsbD0iI2E1Yjk5NSIvPjx0ZXh0IHg9IjU2IiB5PSI1NTAiIGZpbGw9IiM5MzliODciIGZvbnQtc2l6ZT0iMTEiPkxpZmUgdGhpbmdzPC90ZXh0Pjx0ZXh0IHg9IjI5IiB5PSI3NjQiIGZpbGw9IiNhZGI1YTQiIGZvbnQtc2l6ZT0iOSI+QSBmaWN0aW9uYWwgaW5ib3guIE1hZGUgZm9yIHRoZSBkZW1vLjwvdGV4dD4NCjx0ZXh0IHg9IjIzNiIgeT0iOTgiIGZpbGw9IiNhMGE3OTkiIGZvbnQtc2l6ZT0iMTQiPuKGkDwvdGV4dD48cGF0aCBkPSJNMjY3IDg0djIwbS00LTE2aDhtLTcgMCAxIDEzaDRsMS0xMyIgc3Ryb2tlPSIjYjZiZGFmIiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTMwNCA4OGgxM3YxMWgtMTN6IiBzdHJva2U9IiNiNmJkYWYiIGZpbGw9Im5vbmUiLz48dGV4dCB4PSIxMjA4IiB5PSI5OCIgZmlsbD0iI2FmYjZhNCIgZm9udC1zaXplPSIxNCI+wrfCt8K3PC90ZXh0PjxwYXRoIGQ9Ik0yMjggMTIySDEyNDkiIHN0cm9rZT0iI2VlZjBlYSIvPg0KPHRleHQgeD0iMjQxIiB5PSIxNjUiIGZpbGw9IiMzMDNjMmEiIGZvbnQtc2l6ZT0iMjUiIGZvbnQtd2VpZ2h0PSI2MDAiPllvdXIgRmllbGRub3RlcyB3b3Jrc3BhY2UgaXMgcmVhZHkuPC90ZXh0PjxyZWN0IHg9Ijc3MiIgeT0iMTQ0IiB3aWR0aD0iNTUiIGhlaWdodD0iMjAiIHJ4PSI0IiBmaWxsPSIjZWRmMGU3Ii8+PHRleHQgeD0iNzk5IiB5PSIxNTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM5MWExN2QiIGZvbnQtc2l6ZT0iOSI+SW5ib3g8L3RleHQ+DQo8Y2lyY2xlIGN4PSIyNTgiIGN5PSIyMTEiIHI9IjE4IiBmaWxsPSIjZWVlN2RhIi8+PHRleHQgeD0iMjU4IiB5PSIyMTYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNhMzhiNjgiIGZvbnQtc2l6ZT0iMTIiPko8L3RleHQ+PHRleHQgeD0iMjkwIiB5PSIyMDUiIGZpbGw9IiM1MTVlNDciIGZvbnQtc2l6ZT0iMTIiIGZvbnQtd2VpZ2h0PSI2MDAiPkphbWllIGF0IE5vcnRoc3RhcjwvdGV4dD48dGV4dCB4PSIyOTAiIHk9IjIyNCIgZmlsbD0iI2E3YWQ5ZCIgZm9udC1zaXplPSIxMCI+dG8gQWxleCBNb3JnYW4gwrcgYWxleC5tb3JnYW5AZXhhbXBsZS5jb208L3RleHQ+PHRleHQgeD0iMTE1NyIgeT0iMjA2IiBmaWxsPSIjYTRhYzk4IiBmb250LXNpemU9IjEwIiB0ZXh0LWFuY2hvcj0iZW5kIj5Ub2RheSwgOTo0MSBBTTwvdGV4dD4NCjxyZWN0IHg9IjI4OSIgeT0iMjU3IiB3aWR0aD0iODc3IiBoZWlnaHQ9IjEzMSIgcng9IjkiIGZpbGw9IiNmMWY0ZWIiLz48cGF0aCBkPSJtMzM4IDMwMCAxMyAyNS0yNi01IDI3LTIyLTUgMjctOS0yNSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjOGVhYTczIiBzdHJva2Utd2lkdGg9IjEuOCIvPjx0ZXh0IHg9IjM4MiIgeT0iMzEwIiBmaWxsPSIjNWU3NTQ4IiBmb250LXNpemU9IjEwIiBmb250LXdlaWdodD0iNjAwIiBsZXR0ZXItc3BhY2luZz0iMi40Ij5OT1JUSFNUQVIgU1RVRElPPC90ZXh0Pjx0ZXh0IHg9IjM4MiIgeT0iMzQ3IiBmaWxsPSIjMzk0YTJjIiBmb250LWZhbWlseT0iR2VvcmdpYSxzZXJpZiIgZm9udC1zaXplPSIyOSI+WW91ciB3b3Jrc3BhY2UgaXMgcmVhZHkuPC90ZXh0Pg0KPHRleHQgeD0iMjkwIiB5PSI0MzMiIGZpbGw9IiM1ODYzNGUiIGZvbnQtc2l6ZT0iMTQiPkhleSBBbGV4LDwvdGV4dD48dGV4dCB4PSIyOTAiIHk9IjQ2NyIgZmlsbD0iIzhiOTU4MSIgZm9udC1zaXplPSIxMyI+WW91ciB0ZWFtIGhhcyBzaGFyZWQgYSBwcm9qZWN0IGJyaWVmLiBQbGVhc2UgcmV2aWV3IGl0IGJlZm9yZSB0aGUgbmV4dCBtZWV0aW5nLjwvdGV4dD4NCjxyZWN0IHg9IjI5MCIgeT0iNDk3IiB3aWR0aD0iODc3IiBoZWlnaHQ9IjcxIiByeD0iNyIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjZTVlYWRmIi8+PHJlY3QgeD0iMzEwIiB5PSI1MTQiIHdpZHRoPSIzNiIgaGVpZ2h0PSIzNiIgcng9IjUiIGZpbGw9IiNmNWVlZTEiLz48cGF0aCBkPSJNMzIwIDUyNWgxNm0tMTYgNWgxMG0tMTAgNWgxMyIgc3Ryb2tlPSIjYmZhNDdiIiBzdHJva2Utd2lkdGg9IjEuNSIvPjx0ZXh0IHg9IjM2MyIgeT0iNTI3IiBmaWxsPSIjNjQ3NTU0IiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iNjAwIj5UaGUgRmllbGRub3RlcyBwcm9qZWN0PC90ZXh0Pjx0ZXh0IHg9IjM2MyIgeT0iNTQ3IiBmaWxsPSIjYTNhYzk1IiBmb250LXNpemU9IjEwIj5DcmVhdGl2ZSBicmllZiDCtyAzIHBhZ2VzIMK3IFJlYWR5IGZvciB5b3VyIHRob3VnaHRzPC90ZXh0Pjx0ZXh0IHg9IjExMDAiIHk9IjUzOSIgZmlsbD0iI2E2YjE5OCIgZm9udC1zaXplPSIyMiI+4oaXPC90ZXh0Pg0KPHRleHQgeD0iMjkwIiB5PSI2MTAiIGZpbGw9IiM5MjliODUiIGZvbnQtc2l6ZT0iMTIiPllvdXIgcHJpdmF0ZSB3b3Jrc3BhY2UgY29kZTo8L3RleHQ+PHRleHQgeD0iNDg2IiB5PSI2MTAiIGZpbGw9IiM2NTc2NTMiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTMiPk5PUlRIU1RBUi0wODI0LVBSSVZBVEU8L3RleHQ+DQo8dGV4dCB4PSIyOTAiIHk9IjY1OCIgZmlsbD0iIzhiOTU4MSIgZm9udC1zaXplPSIxMyI+T3BlbiB0aGUgYnJpZWYgYW5kIGxlYXZlIHlvdXIgZmVlZGJhY2sgd2hlbiByZWFkeS48L3RleHQ+PHRleHQgeD0iMjkwIiB5PSI2OTYiIGZpbGw9IiM2YzdkNWEiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLHNlcmlmIiBmb250LXNpemU9IjIxIiBmb250LXN0eWxlPSJpdGFsaWMiPkphbWllPC90ZXh0PjxwYXRoIGQ9Ik0yOTAgNzI0SDExNjciIHN0cm9rZT0iI2VkZjBlNyIvPjx0ZXh0IHg9IjI5MCIgeT0iNzQ4IiBmaWxsPSIjYjBiOGE0IiBmb250LXNpemU9IjkiPk5vcnRoc3RhciBTdHVkaW8gwrcgQW4gaW1hZ2luYXJ5IGNvbXBhbnkgd2l0aCBpbWFnaW5hcnkgZGV0YWlscy48L3RleHQ+PHJlY3QgeD0iMjg5IiB5PSI3NjgiIHdpZHRoPSI4OSIgaGVpZ2h0PSIyMyIgcng9IjQiIGZpbGw9IiNmNGY2ZjAiLz48dGV4dCB4PSIzMzMiIHk9Ijc4NCIgZmlsbD0iIzliYTU4YyIgZm9udC1zaXplPSI5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7ihqkgUmVwbHk8L3RleHQ+DQo8L2c+PC9zdmc+DQo=", 'Example screenshot.png', true);
-</script>
-</head>
-<body>
-  <svg class="icon-defs" aria-hidden="true"><defs>
-    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></symbol>
-    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4m-5 5 5-5 5 5M4 15v5h16v-5"/></symbol>
-    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 5v2"/></symbol>
-    <symbol id="i-cover" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="1" fill="currentColor" stroke="none"/><path d="M7 3H3v3m14-3h4v3M3 18v3h4m14-3v3h-4"/></symbol>
-    <symbol id="i-pin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m10 9 2-1v8m-2 0h4"/></symbol>
-    <symbol id="i-pointer" viewBox="0 0 24 24"><path d="m5 3 14 10-7 1-3 7Z"/></symbol>
-    <symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 6 4 11l5 5m-5-5h10a6 6 0 0 1 6 6"/></symbol>
-    <symbol id="i-redo" viewBox="0 0 24 24"><path d="m15 6 5 5-5 5m5-5H10a6 6 0 0 0-6 6"/></symbol>
-    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 6h16M9 6V3h6v3M6 6l1 15h10l1-15M10 10v7m4-7v7"/></symbol>
-    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
-    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/></symbol>
-    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
-    <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.5"/><path d="m3 17 6-6 5 5 3-3 4 4"/></symbol>
-    <symbol id="i-cross" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
-    <symbol id="i-shield" viewBox="0 0 24 24"><path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6Z"/><path d="m8 12 3 3 5-6"/></symbol>
-  </defs></svg>
 
-  <header class="site-header">
-    <a class="brand" href="#" aria-label="ShareSafe home"><span class="brand-mark"><i></i><i></i><i></i><i></i></span>sharesafe<span class="brand-dot">.</span></a>
-    <span class="header-divider"></span><span class="header-caption">Screenshot privacy editor</span>
-    <div class="header-right"><span class="local-pill"><span></span>Local processing</span><button class="text-button" id="help-button">How it works <svg><use href="#i-arrow"/></svg></button></div>
-  </header>
-
-  <main>
-    <section class="intro">
-      <div><div class="eyebrow"><span class="tiny-square"></span>SHARESAFE</div><h1>Redact screenshots<span>.</span></h1><p>Hide private details. Add numbered pins. Export a PNG.</p></div>
-      <div class="intro-note"><svg><use href="#i-shield"/></svg><p>Your image is processed in this tab.<br><strong>PNG, JPG and WebP · up to 25 MB</strong></p></div>
-    </section>
-
-    <section class="studio" aria-label="Screenshot editor">
-      <aside class="sidebar">
-        <div class="sidebar-block source-block">
-          <div class="section-label"><span>IMAGE</span></div>
-          <button class="upload-button" id="upload-button"><svg><use href="#i-upload"/></svg><span>Open a screenshot</span><span class="small-plus">+</span></button>
-          <p class="helper">or drop it anywhere · <kbd>Ctrl</kbd> + <kbd>V</kbd></p>
-          <input id="file-input" type="file" accept="image/png,image/jpeg,image/webp" hidden>
-          <div class="file-card"><span class="file-icon"><svg><use href="#i-image"/></svg></span><div><strong id="file-name">Example screenshot.png</strong><span id="file-meta">1280 × 800 · example image</span></div><span class="file-dot"></span></div>
-        </div>
-
-        <div class="sidebar-block">
-          <div class="section-label"><span>TOOLS</span></div>
-          <div class="tool-stack" role="group" aria-label="Editing tools">
-            <button class="tool active" data-tool="redact" aria-pressed="true"><span class="tool-symbol"><svg><use href="#i-cover"/></svg></span><span><strong>Redact</strong><small>Draw a solid cover</small></span><kbd>R</kbd></button>
-            <button class="tool" data-tool="marker" aria-pressed="false"><span class="tool-symbol"><svg><use href="#i-pin"/></svg></span><span><strong>Number</strong><small>Add a numbered pin</small></span><kbd>N</kbd></button>
-            <button class="tool" data-tool="select" aria-pressed="false"><span class="tool-symbol"><svg><use href="#i-pointer"/></svg></span><span><strong>Select & move</strong><small>Move or resize an edit</small></span><kbd>V</kbd></button>
-          </div>
-          <div class="color-setting"><span>Cover color</span><div class="swatches" role="group" aria-label="Redaction color"><button class="swatch selected" data-color="ink" aria-label="Ink" aria-pressed="true"></button><button class="swatch" data-color="paper" aria-label="Paper" aria-pressed="false"></button><button class="swatch" data-color="coral" aria-label="Coral" aria-pressed="false"></button></div></div>
-          <p class="solid-note"><svg><use href="#i-lock"/></svg>Solid color covers</p>
-        </div>
-
-        <div class="sidebar-block edits-block">
-          <div class="edits-heading"><div class="section-label"><span>EDITS</span></div><span class="count-badge" id="edit-count">0</span></div>
-          <div id="edit-list" class="edit-list" aria-label="Edits"></div>
-          <p id="empty-edits" class="empty-edits">Draw a cover or add a numbered pin.</p>
-          <button id="clear-button" class="clear-button" disabled>Clear all edits</button>
-        </div>
-
-        <div class="privacy-card"><span class="privacy-icon"><svg><use href="#i-lock"/></svg></span><div><strong>No image uploads</strong><p>Edits stay in this tab until you export.</p></div></div>
-      </aside>
-
-      <div class="workbench">
-        <div class="workspace-toolbar">
-          <div class="document-title"><span class="document-dot"></span><strong id="document-name">Your canvas</strong><span id="example-badge" class="example-badge">EXAMPLE</span></div>
-          <div class="toolbar-actions"><button class="icon-button" id="undo-button" aria-label="Undo" title="Undo (Ctrl+Z)" disabled><svg><use href="#i-undo"/></svg></button><button class="icon-button" id="redo-button" aria-label="Redo" title="Redo (Ctrl+Shift+Z)" disabled><svg><use href="#i-redo"/></svg></button><button class="icon-button" id="delete-selected" aria-label="Delete selected edit" title="Delete selected edit" disabled><svg><use href="#i-trash"/></svg></button><span class="toolbar-divider"></span><button id="compare-button" class="compare-button" aria-label="Hold to compare"><svg><use href="#i-eye"/></svg><span>Hold to compare</span></button></div>
-        </div>
-
-        <div class="canvas-viewport" id="viewport">
-          <div class="canvas-surface" id="surface"><div class="image-frame" id="image-frame"><canvas id="editor-canvas" tabindex="0" aria-label="Screenshot editing canvas. Use Redact and drag to cover an area, or Number and click to add an annotation."></canvas><span id="original-label" class="original-label" hidden>ORIGINAL · RELEASE TO RETURN</span></div></div>
-          <div class="drop-curtain" id="drop-curtain" hidden><span class="drop-icon"><svg><use href="#i-upload"/></svg></span><strong>Drop an image here</strong><span>PNG, JPG or WebP · up to 25 MB</span></div>
-        </div>
-
-        <div class="workspace-bottom"><span class="tool-tip" id="tool-tip"><svg><use href="#i-cover"/></svg>Drag a box over anything private.</span><div class="zoom-controls"><button id="zoom-out" aria-label="Zoom out">−</button><span id="zoom-label">Fit</span><button id="zoom-in" aria-label="Zoom in">+</button><span></span><button class="fit-button" id="fit-button" title="Fit image to workspace">Fit</button></div></div>
-        <div class="export-strip"><div><span class="export-label">EXPORT</span><strong id="export-summary">Original resolution · PNG</strong></div><button class="export-button" id="export-button">Export PNG <svg><use href="#i-download"/></svg></button></div>
-      </div>
-    </section>
-
-    <footer><span>Review the full image before sharing.</span><div><span class="footer-dot"></span>Browser-local editing<span class="footer-separator">/</span>Full-resolution PNG<span class="footer-separator">/</span><button id="example-button">Try the example <span>↗</span></button></div></footer>
-  </main>
-
-  <dialog id="help-dialog"><button class="dialog-close icon-button" data-close aria-label="Close help"><svg><use href="#i-cross"/></svg></button><span class="eyebrow">HOW IT WORKS</span><h2>Edit and export</h2><ol class="help-steps"><li><b>Open an image</b><span>Choose a PNG, JPG or WebP, drop it here, or paste it with Ctrl/⌘+V.</span></li><li><b>Cover and annotate</b><span>Drag to redact. Click to number. Use Select to move an edit or resize a cover from a corner.</span></li><li><b>Review and export</b><span>Hold Compare to check the original. Export saves a full-resolution PNG with the covers flattened into the image.</span></li></ol><p class="dialog-note">ShareSafe does not detect private details automatically. Review the whole image before sharing. Your edits stay in this tab and are lost when it closes.</p><button class="dark-button" data-close>Start editing <svg><use href="#i-arrow"/></svg></button></dialog>
-
-  <dialog id="export-dialog"><button class="dialog-close icon-button" data-close aria-label="Close export"><svg><use href="#i-cross"/></svg></button><div class="export-check"><svg><use href="#i-check"/></svg></div><span class="eyebrow">EXPORT PNG</span><h2>Review your image</h2><p>Check names, messages, addresses and other private details before downloading.</p><div class="export-details"><div><span>Image size</span><strong id="review-size"></strong></div><div><span>Your edits</span><strong id="review-edits"></strong></div><div><span>Format</span><strong>PNG · flattened pixels</strong></div></div><label class="review-checkbox"><input type="checkbox" id="review-checkbox">I’ve checked the image for private details.</label><button class="dark-button" id="download-button" disabled>Download PNG <svg><use href="#i-download"/></svg></button><p class="fine-print">The PNG has no original file or undo history attached.</p></dialog>
-
-  <dialog id="replace-dialog"><button class="dialog-close icon-button" data-close aria-label="Cancel replacement"><svg><use href="#i-cross"/></svg></button><span class="eyebrow">A FRESH CANVAS</span><h2>Switch images?</h2><p>Your current edits will be cleared. Export first if you want to keep this version.</p><div class="dialog-button-row"><button class="secondary-button" data-close>Keep editing</button><button class="dark-button" id="confirm-replace">Open new image</button></div></dialog>
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+})();</script>
 </body>
 </html>

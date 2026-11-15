@@ -6,13 +6,13 @@ A browser-local screenshot editor. Open an image, cover private details with sol
 
 Quickest way to try it
 
-Download **ShareSafe.html** from this repository and open it in a current browser. This portable version contains the complete application and fictional example in one file, with no server, install, account or external assets required. Its inline code and styles are protected by explicit Content Security Policy hashes. It works offline after download.
+Download **ShareSafe.html** from this repository and open it in a current browser. In the extracted source, you can also double-click **dist/index.html**. Both files contain the complete application and fictional example, with no server, install, account or external assets required. Code and styles are protected by Content Security Policy hashes.
 
-The development source is also provided as **ShareSafe-source.zip**. Extract it to inspect the separate source files, tests and tools. To regenerate the single-file version from that source, run `npm run portable`.
+The development source is also provided as **ShareSafe-source.zip**. Extract it to inspect the separate source files, tests and tools. After editing the template in `src/editor.html` or the shared JavaScript/CSS files in `dist/`, run `npm run build` to regenerate all three HTML entry files.
 
 The repository also includes **ShareSafe-demo.mp4**, a 48-second captioned walkthrough made from actual editor captures. All example details are fictional.
 
-Run locally
+Optional local server
 
 Use a recent Node.js version (20 or later). There are no runtime dependencies and no install step. On Windows, double-click `Start ShareSafe.cmd`, then open the address it prints. Or run:
 
@@ -53,6 +53,8 @@ npm run check
 npm test
 node tools/verify-example-export.mjs "path/to/A little example-sharesafe.png"
 ```
+
+Nine tests cover editing geometry, history, export behavior, and the offline build. The build checks ensure the default HTML has no external module fetches and that its inline code and styles match the Content Security Policy hashes.
 
 The final command verifies an actual export of the untouched bundled example. It independently decodes PNG filters with Node's standard library, checks all 9,894 pixels in both sample cover regions for the exact opaque ink color, checks source dimensions, and rejects EXIF/text chunks. This is a fixture check, not an automatic privacy scan for arbitrary images.
 
