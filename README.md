@@ -65,4 +65,8 @@ Implementation and credits
 
 Vanilla HTML/CSS/JavaScript, Canvas 2D, pinned Tesseract.js 7.0.0 and its existing English LSTM model, and Compromise 14.20.0. The models/components were not trained for this project. Application development and examples used significant assistance from OpenAI Codex. Licenses are in **THIRD_PARTY_NOTICES.txt** and the HTML.
 
-The 60-second silent, captioned demo uses actual editor captures and exported PNGs. YouTube upload awaits the owner's separate video approval.
+The 63.5-second demo uses a synthetic English male voice, timed captions, actual editor captures and exported PNGs. The production footer and slide counter were removed. Captions are burned into the video and included as a subtitle track and SRT file. YouTube upload awaits the owner's separate video approval.
+
+Optional video rebuild
+
+The narration script uses edge-tts 7.3.1 with the en-US-AndrewNeural male voice. Only the fictional narration text goes to Microsoft’s speech service; this is a separate video-production tool and is not used by ShareSafe. Install the optional requirement from tools/requirements-video.txt, run tools/make-narration.py, then tools/finalize-demo.py. FFmpeg and Windows System.Drawing are required for the video build.
