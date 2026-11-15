@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Keep the moment. Hide the details. Redact and annotate screenshots in your browser, then export a flattened PNG.">
+  <meta name="theme-color" content="#f6f5f1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'sha256-fPyU3QMfc6EXuxwOqVYYUuJ6AsDdN/glRGxogTy3QwU='; style-src 'sha256-WWhllT4pVhOUVhr9rgg2BRzYRCvRzEboL+qXoV+2ZHU='; img-src 'self' blob: data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>ShareSafe — Screenshot editor</title>
+  <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MCA0MCI+PHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iMTEiIGZpbGw9IiNlNjZjNGYiLz48cGF0aCBkPSJNMTAgMTBoOXY5aC05em0xMSAwaDl2OWgtOXpNMTAgMjFoOXY5aC05eiIgZmlsbD0iI2ZmZmFmNCIvPjxwYXRoIGQ9Ik0yMSAyMWg5djloLTl6IiBmaWxsPSIjMjkyZDJhIi8+PC9zdmc+Cg==" type="image/svg+xml">
+  <style>@charset "UTF-8";
+:root{--bg:#f6f5f1;--panel:#fffefa;--ink:#282c2a;--muted:#81847d;--line:#e5e5dd;--coral:#e66c4f;--green:#355b44;--mint:#edf3e9;--serif:Georgia,'Times New Roman',serif}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 'Segoe UI',Arial,sans-serif}button,input{font:inherit}button,a{-webkit-tap-highlight-color:transparent}button{cursor:pointer;color:inherit}button:disabled{cursor:default;opacity:.32}button{transition:background .16s,border-color .16s,box-shadow .16s}button:focus-visible,a:focus-visible,input:focus-visible,canvas:focus-visible{outline:3px solid #e66c4f99;outline-offset:4px}svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}.icon-defs{position:absolute;width:0;height:0;overflow:hidden}.site-header{height:88px;display:flex;align-items:center;padding:0 4.1%;gap:25px;border-bottom:1px solid var(--line)}.brand{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--ink);font-size:28px;font-weight:700;letter-spacing:-1.4px}.brand-dot{color:var(--coral);margin-left:-10px}.brand-mark{width:30px;height:30px;display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-right:3px;transform:rotate(-5deg)}.brand-mark i{background:var(--coral);border-radius:2px}.brand-mark i:last-child{background:var(--ink)}.header-divider{height:23px;width:1px;background:#d9dcd3}.header-caption{font-size:12px;color:#7a7e75}.header-right{display:flex;gap:25px;align-items:center;margin-left:auto}.local-pill{background:var(--mint);border:1px solid #dfe7d9;padding:7px 12px;border-radius:30px;font-size:11px;color:var(--green);font-weight:600;display:flex;gap:8px;align-items:center}.local-pill>span,.footer-dot{height:6px;width:6px;background:#5c8056;border-radius:50%;display:inline-block}.text-button{background:none;border:0;font-size:12px;padding:8px 0;display:flex;gap:7px;align-items:center}.text-button svg{width:15px;height:15px}main{max-width:1640px;margin:auto;padding:0 4.1%}.intro{display:flex;justify-content:space-between;align-items:center;padding:36px 0 31px}.eyebrow{font-size:9px;font-weight:600;letter-spacing:1.7px;color:#85887e;display:flex;align-items:center;gap:7px}.tiny-square{display:inline-block;width:5px;height:5px;background:var(--coral)}h1{font-family:var(--serif);font-size:clamp(42px,4vw,62px);line-height:1.12;letter-spacing:-2.5px;font-weight:400;margin:9px 0 7px}h1>span{color:var(--coral)}.intro>div>p{margin:0;color:#7c8176;font-size:13px;letter-spacing:.1px}.intro-note{display:flex;align-items:center;gap:15px;margin-top:17px}.intro-note>svg{height:34px;width:34px;color:#7c8f70;stroke-width:1.2}.intro-note>p{font-size:11px!important;line-height:1.85!important}.intro-note strong{font-weight:400;color:#5a6256}.studio{display:grid;grid-template-columns:256px minmax(0,1fr);border:1px solid #dfe0d7;border-radius:12px;overflow:hidden;background:var(--panel);box-shadow:0 8px 40px #313d2c05}.sidebar{display:flex;flex-direction:column;border-right:1px solid var(--line);background:#fffefa}.sidebar-block{padding:23px 21px;border-bottom:1px solid var(--line)}.section-label{font-size:9px;color:#b2b5aa;font-weight:500;letter-spacing:.5px;display:flex;gap:10px;align-items:center}.section-label>span{color:#7e8378;font-size:9px;font-weight:650;letter-spacing:1.15px}.upload-button{display:flex;align-items:center;gap:10px;width:100%;margin-top:16px;padding:12px 10px;border:1px dashed #aeb8a2;border-radius:6px;background:#f8faf4;color:#424e39;font-size:11px;font-weight:600}.upload-button:hover{background:#edf3e6;border-color:#7c9866}.upload-button svg{width:17px;height:17px}.small-plus{margin-left:auto;font-size:17px;font-weight:400;color:#8e9b80}.helper{font-size:9px;margin:9px 0 17px;color:#93968d;text-align:center}kbd{font-family:inherit;font-size:9px;color:#999d91;background:#f3f4ee;border:1px solid #e6e8de;border-radius:3px;padding:1px 4px}.file-card{display:flex;align-items:center;gap:9px}.file-icon{height:32px;width:30px;background:#f2eee6;border-radius:5px;display:grid;place-items:center;color:#9b947f}.file-icon svg{width:16px;height:16px}.file-card>div{min-width:0;flex:1}.file-card strong{font-size:10px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;max-width:150px}.file-card div>span{display:block;color:#9a9e91;font-size:9px;margin-top:3px}.file-dot{height:5px;width:5px;background:#6a8c5a;border-radius:50%}.tool-stack{display:flex;flex-direction:column;gap:4px;margin-top:14px}.tool{display:flex;align-items:center;gap:10px;border:1px solid transparent;padding:11px 9px;border-radius:6px;background:transparent;text-align:left}.tool:hover{background:#f3f3ee}.tool.active{background:#f6ede3;border-color:#ecdbcb}.tool-symbol{display:grid;place-items:center;color:#828779}.tool-symbol svg{height:20px;width:20px}.tool.active .tool-symbol{color:var(--coral)}.tool>span:nth-child(2){flex:1}.tool strong{font-size:11px;display:block;font-weight:600}.tool small{font-size:9px;display:block;margin-top:2px;color:#989b91}.tool kbd{background:transparent;border-color:transparent;font-size:9px}.tool.active kbd{border-color:#e5d8c9;background:#fbf5ee;color:#c99374}.color-setting{display:flex;align-items:center;justify-content:space-between;font-size:10px;color:#878c80;margin:18px 2px 12px}.swatches{display:flex;gap:9px}.swatch{height:18px;width:18px;border:2px solid var(--panel);border-radius:50%;padding:0;box-shadow:0 0 0 1px #d2d7c9}.swatch[data-color=ink]{background:#20252b}.swatch[data-color=paper]{background:#faf9f6}.swatch[data-color=coral]{background:var(--coral)}.swatch.selected{box-shadow:0 0 0 1.5px #7d8772}.solid-note{display:flex;align-items:center;gap:5px;color:#a3a798;font-size:9px;margin:0 0 0 2px}.solid-note svg{height:12px;width:12px}.edits-block{flex:1;min-height:145px;padding-top:20px;padding-bottom:16px}.edits-heading{display:flex;align-items:center;justify-content:space-between}.count-badge{font-size:9px;border:1px solid #e1e5d9;background:#f4f5ee;color:#89917e;border-radius:4px;min-width:19px;text-align:center;padding:1px 4px}.edit-list{display:flex;flex-direction:column;gap:4px;margin-top:11px;max-height:142px;overflow-y:auto;scrollbar-width:thin}.edit-row{display:flex;align-items:center;gap:4px;border:1px solid transparent;border-radius:4px}.edit-row.selected{background:#f2f4ec;border-color:#dce3d2}.edit-select{display:flex;align-items:center;flex:1;gap:9px;border:0;padding:7px 5px;text-align:left;background:none;font-size:10px}.edit-symbol{display:block;width:14px;height:9px;border-radius:1px;background:#20252b;flex-shrink:0}.edit-symbol.marker{width:16px;height:16px;border-radius:50%;background:var(--coral);color:white;font-size:9px;line-height:16px;text-align:center}.delete-edit{border:0;background:none;padding:5px;color:#a1a795;display:grid;place-items:center}.delete-edit svg{width:13px;height:13px}.delete-edit:hover{color:#b2553c}.empty-edits{font-size:10px;color:#a2a696;line-height:1.7;margin:13px 0}.clear-button{display:block;background:none;border:0;color:#939988;font-size:9px;padding:7px 0 0;text-decoration:underline;text-underline-offset:3px}.privacy-card{display:flex;gap:9px;padding:18px 20px;background:#f7f8f2;margin-top:auto}.privacy-icon{color:#859774}.privacy-icon svg{height:16px;width:16px}.privacy-card strong{font-size:9px;font-weight:600;color:#6e7e60}.privacy-card p{font-size:9px;color:#a0a58f;margin:4px 0 0;line-height:1.7}.workbench{min-width:0;display:flex;flex-direction:column}.workspace-toolbar{height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;gap:10px;border-bottom:1px solid var(--line);background:#fffefa}.document-title{display:flex;gap:9px;align-items:center;min-width:0}.document-dot{width:5px;height:5px;border-radius:50%;background:#9aab89}.document-title strong{font-size:11px;font-weight:500;white-space:nowrap;max-width:240px;overflow:hidden;text-overflow:ellipsis}.example-badge{font-size:7px;letter-spacing:.9px;background:#f1f1e9;color:#a1a38f;padding:3px 5px;border-radius:3px}.toolbar-actions{display:flex;gap:5px;align-items:center}.icon-button{border:0;background:transparent;padding:7px;color:#747c69;display:grid;place-items:center;border-radius:4px}.icon-button:hover:not(:disabled){background:#f0f2e9}.icon-button svg{width:16px;height:16px}.toolbar-divider{height:17px;background:var(--line);width:1px;margin:0 8px}.compare-button{border:0;background:none;color:#838b79;display:flex;align-items:center;gap:7px;font-size:10px;padding:7px;user-select:none;touch-action:none;border-radius:4px}.compare-button:hover,.compare-button.comparing{background:#f1f4e9;color:#4a623a}.compare-button svg{height:15px;width:15px}.canvas-viewport{height:470px;min-height:350px;flex:1;overflow:auto;position:relative;background-color:#eeefe9;background-image:radial-gradient(#c6ccbd 0.7px,transparent 0.7px);background-size:13px 13px;overscroll-behavior:contain;scrollbar-width:thin}.canvas-surface{min-width:100%;min-height:100%;width:max-content;padding:36px;display:flex;align-items:center;justify-content:center}.image-frame{position:relative;line-height:0;flex-shrink:0;box-shadow:0 12px 34px #28351e12,0 0 0 1px #1c2c1510;background:white}.image-frame canvas{display:block;touch-action:none;max-width:none;outline-offset:6px}.original-label{position:absolute;top:14px;left:14px;background:#20252bee;color:white;padding:8px 10px;font-size:8px;letter-spacing:1px;line-height:1.4;border-radius:4px;pointer-events:none}.drop-curtain{position:fixed;inset:20px;z-index:50;background:#f6f8f0f5;backdrop-filter:blur(8px);border:2px dashed #99ac82;border-radius:15px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#70865a;pointer-events:none}.drop-curtain strong{font-family:var(--serif);font-size:42px;color:#34432e;font-weight:400;letter-spacing:-1px}.drop-curtain>span:last-child{font-size:12px}.drop-icon{padding:20px;border-radius:50%;background:#e9efdf}.drop-icon svg{height:32px;width:32px}[hidden]{display:none!important}.workspace-bottom{height:45px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:#fafbf6;gap:10px}.tool-tip{font-size:9px;color:#939a85;display:flex;align-items:center;gap:7px}.tool-tip svg{height:12px;width:12px}.zoom-controls{display:flex;align-items:center;gap:8px;color:#858c7a}.zoom-controls button{border:0;background:none;padding:2px 5px;font-size:15px;min-width:23px;border-radius:4px}.zoom-controls button:hover{background:#edf0e5}.zoom-controls>span:not(:last-of-type){font-size:9px;min-width:32px;text-align:center}.zoom-controls>span:last-of-type{width:1px;height:13px;background:#dce1d2;margin:0 1px}.zoom-controls .fit-button{font-size:9px}.export-strip{padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;background:#fffefa}.export-label{font-size:7px;color:#9aa28c;letter-spacing:1.3px;display:block;margin-bottom:5px}.export-strip strong{display:block;font-size:11px;font-weight:500;color:#7d8670}.export-button{display:flex;gap:25px;align-items:center;border:0;background:var(--ink);color:#fffdf8;border-radius:6px;padding:13px 18px;font-size:11px;font-weight:500;box-shadow:0 3px 6px #23272012}.export-button:hover{background:#45533a}.export-button svg{width:16px;height:16px}footer{display:flex;align-items:center;justify-content:space-between;padding:21px 0 28px;gap:15px;color:#a0a58f;font-size:9px}footer>div{display:flex;align-items:center;gap:7px}.footer-dot{width:4px;height:4px;background:#92a37c}.footer-separator{color:#c5caba;margin:0 4px}footer button{background:none;border:0;padding:0;font-size:9px;color:#8e987e}footer button span{font-size:12px;margin-left:3px}dialog{border:1px solid #dedfd6;background:#fffefa;color:var(--ink);border-radius:16px;padding:40px;width:min(460px,calc(100vw - 32px));box-shadow:0 24px 100px #1c241433;max-height:90vh;overflow:auto}dialog::backdrop{background:#27302177;backdrop-filter:blur(5px)}.dialog-close{position:absolute;top:15px;right:15px}.dialog-close svg{height:18px;width:18px}h2{font-family:var(--serif);font-size:43px;font-weight:400;letter-spacing:-1.7px;line-height:1.12;margin:18px 0}dialog>p{font-size:12px;color:#858d79;line-height:1.8}.help-steps{list-style:none;counter-reset:step;padding:0;margin:24px 0}.help-steps li{position:relative;padding:0 0 20px 37px;counter-increment:step}.help-steps li:before{content:counter(step);position:absolute;left:0;top:0;width:23px;height:23px;background:#f1ede2;border-radius:50%;color:#b08963;text-align:center;font-size:11px;line-height:23px}.help-steps b{font-size:12px;display:block;font-weight:600}.help-steps span{font-size:11px;color:#8a927e;display:block;margin-top:5px;line-height:1.7}.dialog-note{background:#f4f6ee;padding:13px 16px;border-radius:6px;font-size:10px!important}.dark-button{display:flex;align-items:center;justify-content:space-between;gap:20px;border:0;background:var(--ink);color:#fffdf6;padding:13px 17px;border-radius:6px;font-size:11px;width:100%;margin-top:21px}.dark-button:hover:not(:disabled){background:#45533a}.dark-button svg{width:16px;height:16px}.export-check{border:1px solid #dce7cf;border-radius:50%;width:44px;height:44px;display:grid;place-items:center;color:#7b9563;background:#f0f5e9;margin-bottom:19px}.export-check svg{height:22px;width:22px}.export-details{border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:24px 0;padding:15px 0;display:flex;flex-direction:column;gap:10px}.export-details>div{display:flex;justify-content:space-between;font-size:11px;color:#8c9580}.export-details strong{font-weight:500;color:#5b6750}.review-checkbox{font-size:11px;color:#78886b;display:flex;align-items:center;gap:9px;cursor:pointer}.review-checkbox input{accent-color:#627a4c;width:15px;height:15px;margin:0}.fine-print{font-size:9px!important;text-align:center;margin:13px 0 0}.dialog-button-row{display:flex;gap:10px;margin-top:25px}.dialog-button-row button{margin:0;justify-content:center;flex:1;width:auto}.secondary-button{border:1px solid #dce0d3;background:transparent;padding:12px;font-size:11px;border-radius:6px}.toast{position:fixed;bottom:27px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#2d3627;color:#f7f9ef;border:1px solid #657457;border-radius:8px;padding:13px 20px;z-index:100;box-shadow:0 6px 30px #1b261a22;font-size:12px;max-width:min(500px,90vw);transition:opacity .2s,transform .2s}.toast.visible{opacity:1;transform:translate(-50%,0)}
+/* The image must not move when an edit row is added during a pointer drag. */
+.studio{height:calc(100dvh - 245px);min-height:600px;max-height:760px}.sidebar{overflow-y:auto;min-height:0;scrollbar-width:thin}.workbench{min-height:0}.canvas-viewport{height:auto;min-height:0}
+@media(min-width:1500px){.sidebar-block{padding:26px 23px}.studio{grid-template-columns:274px minmax(0,1fr)}.tool{padding-top:13px;padding-bottom:13px}}
+@media(max-width:1050px){.site-header{padding:0 3%;gap:18px}.header-caption{display:none}main{padding:0 3%}.intro-note{max-width:240px}.intro-note p{font-size:10px!important}.studio{grid-template-columns:222px minmax(0,1fr)}.sidebar-block{padding:20px 15px}.tool{padding:10px 6px;gap:8px}.workspace-toolbar{padding:0 17px}.compare-button span{display:none}.document-title strong{max-width:160px}.canvas-surface{padding:24px}.workspace-bottom{padding:0 15px}.tool-tip{max-width:235px}.intro{padding-top:28px}.privacy-card{padding:16px 15px}.export-strip{padding:18px}.header-right{gap:17px}}
+@media(max-width:720px){.site-header{height:70px;padding:0 5%}.brand{font-size:25px}.brand-mark{width:26px;height:26px}.header-divider,.local-pill,.header-caption{display:none}.header-right{gap:0}.text-button{font-size:11px}main{padding:0 4%}.intro{padding:27px 4px 24px}.intro-note{display:none}.eyebrow{font-size:7px;letter-spacing:1.3px}h1{font-size:43px;letter-spacing:-1.8px}.intro>div>p{font-size:12px}.studio{display:flex;flex-direction:column}.sidebar{border-right:0;border-bottom:1px solid var(--line)}.sidebar-block.source-block{padding:15px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.source-block .section-label,.source-block .helper{display:none}.upload-button{width:auto;flex-shrink:0;margin:0;padding:10px;font-size:10px}.small-plus{display:none}.file-card{margin-left:auto;flex:1;justify-content:flex-end;max-width:180px}.file-card strong{max-width:100px;font-size:9px}.file-card div>span{font-size:8px}.file-card .file-icon{display:none}.file-dot{display:none}.sidebar-block:nth-child(2){padding:12px 11px;border-bottom:0}.sidebar-block:nth-child(2)>.section-label,.solid-note{display:none}.tool-stack{flex-direction:row;margin:0;gap:5px}.tool{flex:1;justify-content:center;padding:9px 5px;gap:6px}.tool strong{font-size:10px}.tool small,.tool kbd{display:none}.tool-symbol svg{width:16px;height:16px}.color-setting{margin:12px 6px 0;font-size:9px}.swatch{width:18px;height:18px}.swatches{gap:13px}.edits-block,.privacy-card{display:none}.workspace-toolbar{height:49px;padding:0 13px}.toolbar-divider{margin:0 3px}.document-title{gap:6px}.document-title strong{max-width:135px;font-size:10px}.example-badge{font-size:6px}.icon-button{padding:6px}.canvas-viewport{height:390px;min-height:300px;flex:none}.canvas-surface{padding:18px}.workspace-bottom{padding:0 10px;height:41px}.tool-tip{font-size:8px;max-width:200px;gap:5px}.tool-tip svg{display:none}.zoom-controls{gap:3px}.zoom-controls button{font-size:14px;padding:2px 3px;min-width:20px}.export-strip{padding:16px 13px}.export-strip strong{font-size:9px}.export-label{font-size:6px;letter-spacing:1px}.export-button{font-size:10px;padding:12px 13px;gap:13px}footer{padding:17px 3px;font-size:8px;flex-wrap:wrap;gap:10px}footer>div{font-size:8px;gap:5px}footer button{font-size:8px}.footer-separator{margin:0 2px}dialog{padding:30px 25px}h2{font-size:38px}.drop-curtain strong{font-size:30px}.drop-curtain{inset:10px}.image-frame canvas{outline-offset:2px}}
+@media(max-width:720px){.studio{height:auto;min-height:0;max-height:none}.sidebar{overflow:visible}.canvas-viewport{height:390px;min-height:300px;flex:none}}
+/* Compact, readable controls keep the image and primary action in view. */
+.site-header{height:72px}.header-caption{font-size:12px;color:#6b7365}.intro{padding:24px 0 22px}h1{font-size:50px;letter-spacing:-1.8px;margin:7px 0}.intro>div>p{font-size:13px;color:#69715f}.intro-note>p{font-size:11px!important;color:#6f7866}.studio{height:calc(100dvh - 220px)}.sidebar-block{padding:17px 18px}.section-label>span{font-size:10px;letter-spacing:.8px;color:#737d69}.upload-button{font-size:12px;padding:11px 10px;margin-top:12px}.helper{font-size:10px;color:#7f8873;margin:8px 0 13px}.file-card strong{font-size:11px;max-width:170px}.file-card div>span{font-size:10px;color:#7d876e}.tool-stack{gap:3px;margin-top:10px}.tool{padding:8px;min-height:47px}.tool strong{font-size:12px}.tool small{font-size:10px;color:#7e8872}.color-setting{font-size:11px;color:#6e7962;margin:13px 2px 10px}.solid-note{font-size:10px;color:#859076}.edits-block{min-height:140px}.edit-select{font-size:11px;padding:8px 5px}.count-badge{font-size:10px}.empty-edits{font-size:11px;color:#7e8972}.clear-button{font-size:10px;color:#758069}.privacy-card{padding:14px 18px}.privacy-card strong{font-size:10px}.privacy-card p{font-size:10px;color:#7e896e}.workspace-toolbar{height:54px;flex-shrink:0}.document-title strong{font-size:12px}.compare-button{font-size:11px}.workspace-bottom{height:44px;flex-shrink:0}.tool-tip{font-size:11px;color:#778365}.export-strip{padding:16px 23px;flex-shrink:0}.export-label{font-size:8px;color:#7e8a6c}.export-strip strong{font-size:12px;color:#68775a}.export-button{font-size:12px}.zoom-controls>span:not(:last-of-type){font-size:10px}footer{font-size:10px;color:#899476}footer button{font-size:10px}
+@media(max-width:720px){.site-header{height:66px}.intro{padding:24px 4px 20px}h1{font-size:36px;letter-spacing:-1.3px}.intro>div>p{font-size:11px}.studio{height:auto}.sidebar-block.source-block{padding:14px}.sidebar-block:nth-child(2){padding:10px 11px}.tool{padding:7px 5px;min-height:40px}.tool strong{font-size:11px}.file-card strong{font-size:10px;max-width:105px}.file-card div>span{font-size:9px}.upload-button{font-size:10px;margin-top:0}.color-setting{margin:10px 6px 0;font-size:10px}.workspace-toolbar{height:47px}.document-title strong{font-size:10px;max-width:118px}.tool-tip{font-size:9px}.export-strip{padding:14px 12px}.export-strip strong{font-size:10px}.export-button{font-size:11px}.export-label{font-size:7px}footer{font-size:9px}footer button{font-size:9px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;scroll-behavior:auto!important}}
+</style>
+  <script type="module">const COLORS = Object.freeze({ ink: '#20252b', paper: '#faf9f6', coral: '#e66c4f' });
+const LIMITS = Object.freeze({ bytes: 25 * 1024 * 1024, pixels: 24_000_000, side: 12000 });
+const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
+
+function boxFromPoints(a, b, width, height) {
+  const x = clamp(Math.min(a.x, b.x), 0, width);
+  const y = clamp(Math.min(a.y, b.y), 0, height);
+  return { x, y, w: clamp(Math.max(a.x, b.x), 0, width) - x, h: clamp(Math.max(a.y, b.y), 0, height) - y };
+}
+
+// Round outwards: every image pixel touched by the selected region is covered.
+function opaqueBounds(shape, width, height) {
+  const x = clamp(Math.floor(shape.x), 0, width);
+  const y = clamp(Math.floor(shape.y), 0, height);
+  return { x, y, w: clamp(Math.ceil(shape.x + shape.w), 0, width) - x,
+    h: clamp(Math.ceil(shape.y + shape.h), 0, height) - y };
+}
+
+function moveShape(shape, dx, dy, width, height) {
+  if (shape.type === 'marker') return { ...shape, x: clamp(shape.x + dx, 0, width), y: clamp(shape.y + dy, 0, height) };
+  return { ...shape, x: clamp(shape.x + dx, 0, width - shape.w), y: clamp(shape.y + dy, 0, height - shape.h) };
+}
+
+function handlePoints(s) {
+  return [{ key: 'nw', x: s.x, y: s.y }, { key: 'ne', x: s.x + s.w, y: s.y },
+    { key: 'se', x: s.x + s.w, y: s.y + s.h }, { key: 'sw', x: s.x, y: s.y + s.h }];
+}
+
+function resizeShape(shape, handle, point, width, height) {
+  const opposite = { nw: [shape.x + shape.w, shape.y + shape.h], ne: [shape.x, shape.y + shape.h],
+    se: [shape.x, shape.y], sw: [shape.x + shape.w, shape.y] }[handle];
+  return { ...shape, ...boxFromPoints({ x: opposite[0], y: opposite[1] }, point, width, height) };
+}
+
+function hitShape(shape, point, zoom, markerSize) {
+  const tolerance = 5 / zoom;
+  return shape.type === 'marker'
+    ? Math.hypot(point.x - shape.x, point.y - shape.y) <= markerSize + tolerance
+    : point.x >= shape.x - tolerance && point.x <= shape.x + shape.w + tolerance && point.y >= shape.y - tolerance && point.y <= shape.y + shape.h + tolerance;
+}
+
+function drawComposite(ctx, image, shapes, width, height) {
+  ctx.save();
+  ctx.globalAlpha = 1;
+  ctx.globalCompositeOperation = 'source-over';
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, width, height);
+  ctx.drawImage(image, 0, 0, width, height);
+  // Covers always paint after the original, at full opacity, without rounded corners.
+  for (const shape of shapes.filter(s => s.type === 'redact')) {
+    const box = opaqueBounds(shape, width, height);
+    ctx.fillStyle = Object.values(COLORS).includes(shape.color) ? shape.color : COLORS.ink;
+    ctx.fillRect(box.x, box.y, box.w, box.h);
+  }
+  let number = 0;
+  const radius = markerRadius(width, height);
+  for (const shape of shapes.filter(s => s.type === 'marker')) {
+    number++;
+    ctx.beginPath(); ctx.arc(shape.x, shape.y, radius, 0, Math.PI * 2);
+    ctx.fillStyle = COLORS.coral; ctx.fill();
+    ctx.lineWidth = radius * .13; ctx.strokeStyle = '#ffffff'; ctx.stroke();
+    ctx.fillStyle = '#ffffff'; ctx.font = `600 ${Math.round(radius * 1.04)}px system-ui, sans-serif`;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(String(number), shape.x, shape.y + radius * .04);
+  }
+  ctx.restore();
+}
+
+function markerRadius(width, height) { return clamp(Math.min(width, height) * .026, 8, 80); }
+
+class EditHistory {
+  constructor() { this.reset(); }
+  reset(shapes = []) { this.entries = [structuredClone(shapes)]; this.index = 0; }
+  get current() { return structuredClone(this.entries[this.index]); }
+  get canUndo() { return this.index > 0; }
+  get canRedo() { return this.index < this.entries.length - 1; }
+  commit(shapes) {
+    if (JSON.stringify(shapes) === JSON.stringify(this.entries[this.index])) return false;
+    this.entries = this.entries.slice(0, this.index + 1);
+    this.entries.push(structuredClone(shapes));
+    if (this.entries.length > 61) this.entries.shift();
+    this.index = this.entries.length - 1;
+    return true;
+  }
+  undo() { if (this.canUndo) this.index--; return this.current; }
+  redo() { if (this.canRedo) this.index++; return this.current; }
+}
+
+function exportFilename(name) {
+  const stem = (name || 'screenshot').replace(/\.[^.]+$/, '').replace(/[^a-zA-Z0-9_\- ]/g, '').trim().slice(0, 80);
+  return `${stem || 'screenshot'}-sharesafe.png`;
+}
+
+const $ = id => document.getElementById(id);
+const canvas = $('editor-canvas');
+const ctx = canvas.getContext('2d');
+const viewport = $('viewport');
+const history = new EditHistory();
+const state = { image: null, shapes: [], selected: null, tool: 'redact', color: 'ink', zoom: 1,
+  fit: true, compare: false, drag: null, name: '', example: true, loadId: 0, pending: null, exported: '' };
+let toastTimer, frameRequest;
+
+function toast(message) {
+  $('toast').textContent = message;
+  $('toast').classList.add('visible');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => $('toast').classList.remove('visible'), 4200);
+}
+
+function queueRender() { if (!frameRequest) frameRequest = requestAnimationFrame(() => { frameRequest = 0; render(); }); }
+
+function render() {
+  if (!state.image) return;
+  drawComposite(ctx, state.image, state.compare ? [] : state.shapes, canvas.width, canvas.height);
+  $('original-label').hidden = !state.compare;
+  if (state.compare) return;
+  const selected = state.shapes.find(s => s.id === state.selected);
+  if (selected) {
+    ctx.save(); ctx.strokeStyle = '#e66c4f'; ctx.lineWidth = 1.5 / state.zoom;
+    if (selected.type === 'redact') {
+      const gap = 3 / state.zoom;
+      ctx.strokeRect(selected.x - gap, selected.y - gap, selected.w + gap * 2, selected.h + gap * 2);
+      for (const p of handlePoints(selected)) {
+        const side = 7 / state.zoom;
+        ctx.fillStyle = '#ffffff'; ctx.fillRect(p.x - side / 2, p.y - side / 2, side, side);
+        ctx.strokeRect(p.x - side / 2, p.y - side / 2, side, side);
+      }
+    } else {
+      ctx.setLineDash([3 / state.zoom, 3 / state.zoom]);
+      ctx.beginPath(); ctx.arc(selected.x, selected.y, markerRadius(canvas.width, canvas.height) + 5 / state.zoom, 0, Math.PI * 2); ctx.stroke();
+    }
+    ctx.restore();
+  }
+}
+
+function updateUI() {
+  $('undo-button').disabled = !history.canUndo;
+  $('redo-button').disabled = !history.canRedo;
+  $('delete-selected').disabled = !state.shapes.some(s => s.id === state.selected);
+  $('clear-button').disabled = !state.shapes.length;
+  $('edit-count').textContent = state.shapes.length;
+  $('empty-edits').hidden = !!state.shapes.length;
+  const counts = { redact: 0, marker: 0 };
+  const fragment = document.createDocumentFragment();
+  for (const shape of state.shapes) {
+    const number = ++counts[shape.type];
+    const label = shape.type === 'redact' ? `Redaction ${number}` : `Number ${number}`;
+    const row = document.createElement('div'); row.className = 'edit-row' + (shape.id === state.selected ? ' selected' : '');
+    const select = document.createElement('button'); select.className = 'edit-select';
+    select.setAttribute('aria-label', `Select ${label.toLowerCase()}`);
+    const icon = document.createElement('span'); icon.className = 'edit-symbol' + (shape.type === 'marker' ? ' marker' : '');
+    if (shape.type === 'marker') icon.textContent = number;
+    else icon.style.backgroundColor = shape.color;
+    select.append(icon, document.createTextNode(label));
+    select.addEventListener('click', () => { cancelDrag(); state.selected = shape.id; setTool('select'); updateUI(); });
+    const remove = document.createElement('button'); remove.className = 'delete-edit';
+    remove.setAttribute('aria-label', `Delete ${label.toLowerCase()}`);
+    remove.innerHTML = '<svg><use href="#i-trash"/></svg>';
+    remove.addEventListener('click', () => deleteShape(shape.id));
+    row.append(select, remove); fragment.append(row);
+  }
+  $('edit-list').replaceChildren(fragment);
+  $('export-summary').textContent = counts.redact || counts.marker
+    ? `${counts.redact} ${counts.redact === 1 ? 'redaction' : 'redactions'} · ${counts.marker} numbered ${counts.marker === 1 ? 'pin' : 'pins'} · Full resolution`
+    : 'Original resolution · PNG';
+  queueRender();
+}
+
+function setTool(tool) {
+  cancelDrag(); state.tool = tool;
+  for (const button of document.querySelectorAll('[data-tool]')) {
+    const active = button.dataset.tool === tool;
+    button.classList.toggle('active', active); button.setAttribute('aria-pressed', active);
+  }
+  canvas.style.cursor = tool === 'redact' ? 'crosshair' : tool === 'marker' ? 'copy' : 'default';
+  const tips = { redact: ['cover', 'Drag a box over anything private.'], marker: ['pin', 'Click to add a numbered pin.'], select: ['pointer', 'Move an edit. Drag a corner to resize.'] };
+  $('tool-tip').innerHTML = `<svg><use href="#i-${tips[tool][0]}"/></svg>${tips[tool][1]}`;
+  updateUI();
+}
+
+function setColor(color) {
+  state.color = color;
+  for (const button of document.querySelectorAll('[data-color]')) {
+    const active = button.dataset.color === color;
+    button.classList.toggle('selected', active); button.setAttribute('aria-pressed', active);
+  }
+  const selected = state.shapes.find(s => s.id === state.selected);
+  if (selected?.type === 'redact') { selected.color = COLORS[color]; commit(); }
+}
+
+function commit() { history.commit(state.shapes); updateUI(); }
+function deleteShape(id) {
+  cancelDrag(); state.shapes = state.shapes.filter(s => s.id !== id);
+  if (state.selected === id) state.selected = null;
+  commit();
+}
+function cancelDrag() {
+  if (!state.drag) return;
+  state.shapes = state.drag.before; state.drag = null; queueRender();
+}
+function undo() { cancelDrag(); state.shapes = history.undo(); state.selected = null; updateUI(); }
+function redo() { cancelDrag(); state.shapes = history.redo(); state.selected = null; updateUI(); }
+
+function zoomTo(value, fit = false) {
+  if (!state.image) return;
+  state.fit = fit;
+  const previous = state.zoom;
+  const centerX = (viewport.scrollLeft + viewport.clientWidth / 2) / previous;
+  const centerY = (viewport.scrollTop + viewport.clientHeight / 2) / previous;
+  state.zoom = clamp(value, .02, 2);
+  canvas.style.width = `${canvas.width * state.zoom}px`;
+  canvas.style.height = `${canvas.height * state.zoom}px`;
+  $('zoom-label').textContent = `${Math.round(state.zoom * 100)}%`;
+  if (!fit) {
+    viewport.scrollLeft = centerX * state.zoom - viewport.clientWidth / 2;
+    viewport.scrollTop = centerY * state.zoom - viewport.clientHeight / 2;
+  } else { viewport.scrollLeft = 0; viewport.scrollTop = 0; }
+  queueRender();
+}
+function fitImage() {
+  const padding = window.innerWidth <= 720 ? 36 : window.innerWidth <= 1050 ? 48 : 72;
+  zoomTo(Math.min((viewport.clientWidth - padding) / canvas.width, (viewport.clientHeight - padding) / canvas.height, 1), true);
+}
+
+function imagePoint(event) {
+  const rect = canvas.getBoundingClientRect();
+  return { x: clamp((event.clientX - rect.left) * canvas.width / rect.width, 0, canvas.width),
+    y: clamp((event.clientY - rect.top) * canvas.height / rect.height, 0, canvas.height) };
+}
+
+canvas.addEventListener('pointerdown', event => {
+  if (!state.image || state.compare || state.drag || event.button !== 0) return;
+  event.preventDefault(); canvas.focus({ preventScroll: true });
+  const point = imagePoint(event);
+  if (state.tool === 'marker') {
+    const shape = { id: crypto.randomUUID(), type: 'marker', ...point };
+    state.shapes.push(shape); state.selected = shape.id; commit(); return;
+  }
+  const selected = state.shapes.find(s => s.id === state.selected);
+  const handle = state.tool === 'select' && selected?.type === 'redact'
+    ? handlePoints(selected).find(p => Math.hypot(p.x - point.x, p.y - point.y) < 11 / state.zoom) : null;
+  const hit = state.tool === 'select'
+    ? [...state.shapes].reverse().find(s => hitShape(s, point, state.zoom, markerRadius(canvas.width, canvas.height))) : null;
+  const before = structuredClone(state.shapes);
+  if (state.tool === 'redact') {
+    const shape = { id: crypto.randomUUID(), type: 'redact', color: COLORS[state.color], x: point.x, y: point.y, w: 0, h: 0 };
+    state.shapes.push(shape); state.selected = shape.id;
+    state.drag = { pointer: event.pointerId, mode: 'draw', start: point, original: structuredClone(shape), before };
+  } else if (handle || hit) {
+    const shape = handle ? selected : hit;
+    state.selected = shape.id;
+    state.drag = { pointer: event.pointerId, mode: handle ? 'resize' : 'move', handle: handle?.key, start: point, original: structuredClone(shape), before };
+  } else { state.selected = null; updateUI(); return; }
+  canvas.setPointerCapture(event.pointerId); updateUI();
+});
+
+function updateDrag(event) {
+  const drag = state.drag;
+  if (!drag || drag.pointer !== event.pointerId) return;
+  const point = imagePoint(event);
+  const index = state.shapes.findIndex(s => s.id === state.selected);
+  if (drag.mode === 'draw') state.shapes[index] = { ...drag.original, ...boxFromPoints(drag.start, point, canvas.width, canvas.height) };
+  if (drag.mode === 'resize') state.shapes[index] = resizeShape(drag.original, drag.handle, point, canvas.width, canvas.height);
+  if (drag.mode === 'move') state.shapes[index] = moveShape(drag.original, point.x - drag.start.x, point.y - drag.start.y, canvas.width, canvas.height);
+  queueRender();
+}
+canvas.addEventListener('pointermove', updateDrag);
+
+canvas.addEventListener('pointerup', event => {
+  if (!state.drag || state.drag.pointer !== event.pointerId) return;
+  updateDrag(event);
+  const shape = state.shapes.find(s => s.id === state.selected);
+  if (shape?.type === 'redact' && (shape.w < 2 || shape.h < 2)) {
+    state.shapes = state.drag.before; state.selected = null;
+  }
+  state.drag = null;
+  if (canvas.hasPointerCapture(event.pointerId)) canvas.releasePointerCapture(event.pointerId);
+  commit();
+});
+canvas.addEventListener('pointercancel', () => { cancelDrag(); updateUI(); });
+canvas.addEventListener('lostpointercapture', () => { if (state.drag) { cancelDrag(); updateUI(); } });
+
+function compare(value) {
+  if (value) cancelDrag();
+  state.compare = value; $('compare-button').classList.toggle('comparing', value); queueRender();
+}
+const compareButton = $('compare-button');
+compareButton.addEventListener('pointerdown', event => {
+  if (event.button !== 0) return;
+  compareButton.setPointerCapture(event.pointerId); compare(true);
+});
+for (const name of ['pointerup', 'pointercancel', 'lostpointercapture']) compareButton.addEventListener(name, () => compare(false));
+compareButton.addEventListener('keydown', event => { if ([' ', 'Enter'].includes(event.key)) { event.preventDefault(); compare(true); } });
+compareButton.addEventListener('keyup', () => compare(false));
+compareButton.addEventListener('blur', () => compare(false));
+window.addEventListener('blur', () => { compare(false); cancelDrag(); updateUI(); });
+document.addEventListener('visibilitychange', () => { if (document.hidden) { compare(false); cancelDrag(); updateUI(); } });
+
+async function isSupportedImage(file) {
+  const bytes = new Uint8Array(await file.slice(0, 16).arrayBuffer());
+  const png = [137,80,78,71,13,10,26,10].every((b, i) => bytes[i] === b);
+  const jpeg = bytes[0] === 255 && bytes[1] === 216 && bytes[2] === 255;
+  const ascii = (a, b) => String.fromCharCode(...bytes.slice(a, b));
+  return png || jpeg || (ascii(0, 4) === 'RIFF' && ascii(8, 12) === 'WEBP');
+}
+
+async function loadImage(url, name, example = false) {
+  const loadId = ++state.loadId;
+  $('export-button').disabled = true;
+  try {
+    const image = new Image(); image.src = url; await image.decode();
+    if (loadId !== state.loadId) return;
+    const w = image.naturalWidth, h = image.naturalHeight;
+    if (!w || !h || w * h > LIMITS.pixels || w > LIMITS.side || h > LIMITS.side) throw new Error('Please use an image up to 24 megapixels and 12,000 pixels per side.');
+    cancelDrag(); compare(false);
+    state.image = image; state.name = name; state.example = example; state.selected = null;
+    state.shapes = example ? [
+      { id: crypto.randomUUID(), type: 'redact', color: COLORS.ink, x: 304, y: 211, w: 265, h: 18 },
+      { id: crypto.randomUUID(), type: 'redact', color: COLORS.ink, x: 482, y: 596, w: 244, h: 21 },
+      { id: crypto.randomUUID(), type: 'marker', x: 1146, y: 498 }
+    ] : [];
+    history.reset(); if (state.shapes.length) history.commit(state.shapes);
+    state.exported = '';
+    canvas.width = w; canvas.height = h;
+    $('file-name').textContent = name;
+    $('file-meta').textContent = `${w.toLocaleString()} × ${h.toLocaleString()} · ${example ? 'example image' : 'local image'}`;
+    $('document-name').textContent = example ? 'Example screenshot' : name;
+    $('example-badge').hidden = !example;
+    setTool('redact'); fitImage(); updateUI();
+    if (!example) toast('Your image is open. Nothing was uploaded.');
+  } catch (error) { if (loadId === state.loadId) toast(error.message.startsWith('Please') ? error.message : 'That image could not be opened. Try a PNG, JPG or WebP.'); }
+  finally {
+    if (url.startsWith('blob:')) URL.revokeObjectURL(url);
+    if (loadId === state.loadId) $('export-button').disabled = !state.image;
+  }
+}
+
+function requestReplace(action) {
+  cancelDrag();
+  if (state.image && !state.example && state.shapes.length && JSON.stringify(state.shapes) !== state.exported) {
+    state.pending = action; $('replace-dialog').showModal();
+  } else action();
+}
+
+async function openFile(file) {
+  if (!file) return;
+  if (file.size > LIMITS.bytes) return toast('That file is a little big. Please choose an image under 25 MB.');
+  if (!await isSupportedImage(file)) return toast('Please choose a PNG, JPG or WebP image. Other file types are not supported.');
+  requestReplace(() => loadImage(URL.createObjectURL(file), file.name || 'pasted-screenshot.png'));
+}
+
+$('upload-button').addEventListener('click', () => $('file-input').click());
+$('file-input').addEventListener('change', event => { openFile(event.target.files[0]); event.target.value = ''; });
+document.addEventListener('paste', event => {
+  const item = [...(event.clipboardData?.items || [])].find(i => i.kind === 'file' && i.type.startsWith('image/'));
+  if (item && !document.querySelector('dialog[open]')) { event.preventDefault(); openFile(item.getAsFile()); }
+});
+let dragDepth = 0;
+document.addEventListener('dragenter', event => {
+  if (![...(event.dataTransfer?.types || [])].includes('Files')) return;
+  event.preventDefault(); dragDepth++; $('drop-curtain').hidden = false;
+});
+document.addEventListener('dragover', event => { event.preventDefault(); });
+document.addEventListener('dragleave', () => { dragDepth = Math.max(0, dragDepth - 1); if (!dragDepth) $('drop-curtain').hidden = true; });
+document.addEventListener('drop', event => {
+  event.preventDefault(); dragDepth = 0; $('drop-curtain').hidden = true;
+  if (document.querySelector('dialog[open]')) return;
+  const files = [...(event.dataTransfer?.files || [])];
+  if (files.length > 1) toast('One canvas at a time. Opening the first image.');
+  openFile(files[0]);
+});
+
+for (const button of document.querySelectorAll('[data-tool]')) button.addEventListener('click', () => setTool(button.dataset.tool));
+for (const button of document.querySelectorAll('[data-color]')) button.addEventListener('click', () => { cancelDrag(); setColor(button.dataset.color); });
+$('undo-button').addEventListener('click', undo);
+$('redo-button').addEventListener('click', redo);
+$('delete-selected').addEventListener('click', () => { if (state.selected) deleteShape(state.selected); });
+$('clear-button').addEventListener('click', () => { cancelDrag(); state.shapes = []; state.selected = null; commit(); toast('Edits cleared. Undo brings them back.'); });
+$('zoom-out').addEventListener('click', () => zoomTo(state.zoom / 1.25));
+$('zoom-in').addEventListener('click', () => zoomTo(state.zoom * 1.25));
+$('fit-button').addEventListener('click', fitImage);
+new ResizeObserver(() => { if (state.fit && state.image) fitImage(); }).observe(viewport);
+
+$('help-button').addEventListener('click', () => { compare(false); $('help-dialog').showModal(); });
+for (const button of document.querySelectorAll('[data-close]')) button.addEventListener('click', () => button.closest('dialog').close());
+for (const dialog of document.querySelectorAll('dialog')) dialog.addEventListener('click', event => {
+  if (event.target !== dialog) return;
+  const r = dialog.getBoundingClientRect();
+  if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) dialog.close();
+});
+$('replace-dialog').addEventListener('close', () => { state.pending = null; });
+$('confirm-replace').addEventListener('click', () => { const action = state.pending; state.pending = null; $('replace-dialog').close(); action?.(); });
+$('example-button').addEventListener('click', () => requestReplace(() => loadImage("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjgwIiBoZWlnaHQ9IjgwMCIgdmlld0JveD0iMCAwIDEyODAgODAwIj4NCjxyZWN0IHdpZHRoPSIxMjgwIiBoZWlnaHQ9IjgwMCIgZmlsbD0iI2ZmZiIvPjxyZWN0IHdpZHRoPSIxMjgwIiBoZWlnaHQ9IjU3IiBmaWxsPSIjZmFmYWY4Ii8+PHBhdGggZD0iTTAgNTdIMTI4MCIgc3Ryb2tlPSIjZTdlOWU0Ii8+DQo8ZyBmaWxsPSIjZDNkN2NmIj48Y2lyY2xlIGN4PSIyNiIgY3k9IjI5IiByPSI1Ii8+PGNpcmNsZSBjeD0iNDQiIGN5PSIyOSIgcj0iNSIvPjxjaXJjbGUgY3g9IjYyIiBjeT0iMjkiIHI9IjUiLz48L2c+PHJlY3QgeD0iNDI3IiB5PSIxNiIgd2lkdGg9IjQyNyIgaGVpZ2h0PSIyNiIgcng9IjUiIGZpbGw9IiNlZmVmZWIiLz48dGV4dCB4PSI2NDAiIHk9IjM0IiBmaWxsPSIjOTY5ZDhlIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+bWFpbC5leGFtcGxlLmNvbSAvIGluYm94PC90ZXh0Pg0KPHJlY3QgeT0iNTgiIHdpZHRoPSIxOTgiIGhlaWdodD0iNzQyIiBmaWxsPSIjZjhmOWY2Ii8+PHBhdGggZD0iTTE5OCA1N1Y4MDAiIHN0cm9rZT0iI2U5ZWNlNCIvPg0KPGcgZm9udC1mYW1pbHk9IkFyaWFsLHNhbnMtc2VyaWYiPjxnIGZpbGw9IiMzZTU2MzUiPjxyZWN0IHg9IjI1IiB5PSI4NyIgd2lkdGg9IjI1IiBoZWlnaHQ9IjIwIiByeD0iNSIvPjxwYXRoIGQ9Im0zMCA5MyA3IDUgOC01IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMS41Ii8+PHRleHQgeD0iNjEiIHk9IjEwMyIgZm9udC1zaXplPSIxOCIgZm9udC13ZWlnaHQ9IjcwMCI+cG9zdGJveDwvdGV4dD48L2c+DQo8cmVjdCB4PSIxOSIgeT0iMTM3IiB3aWR0aD0iMTU3IiBoZWlnaHQ9IjM5IiByeD0iNyIgZmlsbD0iI2U5ZWVlMiIvPjx0ZXh0IHg9IjQwIiB5PSIxNjIiIGZpbGw9IiM2ODdkNTAiIGZvbnQtc2l6ZT0iMTIiIGZvbnQtd2VpZ2h0PSI2MDAiPisgQ29tcG9zZTwvdGV4dD4NCjxyZWN0IHg9IjEzIiB5PSIyMDYiIHdpZHRoPSIxNzQiIGhlaWdodD0iMzYiIHJ4PSI1IiBmaWxsPSIjZWVmMWU4Ii8+PHRleHQgeD0iMzkiIHk9IjIyOSIgZmlsbD0iIzVjNmY0NyIgZm9udC1zaXplPSIxMiIgZm9udC13ZWlnaHQ9IjYwMCI+SW5ib3g8L3RleHQ+PHJlY3QgeD0iMTQ1IiB5PSIyMTUiIHdpZHRoPSIyMyIgaGVpZ2h0PSIxOCIgcng9IjUiIGZpbGw9IiNkY2U1Y2YiLz48dGV4dCB4PSIxNTYiIHk9IjIyOCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzc0ODc1YSIgZm9udC1zaXplPSIxMCI+ODwvdGV4dD4NCjxnIGZpbGw9IiM5NzlmOGMiIGZvbnQtc2l6ZT0iMTIiPjx0ZXh0IHg9IjM5IiB5PSIyNzMiPlN0YXJyZWQ8L3RleHQ+PHRleHQgeD0iMzkiIHk9IjMxNiI+U2VudDwvdGV4dD48dGV4dCB4PSIzOSIgeT0iMzU5Ij5EcmFmdHM8L3RleHQ+PHRleHQgeD0iMzkiIHk9IjQwMiI+QXJjaGl2ZTwvdGV4dD48L2c+PHBhdGggZD0iTTI5IDQ0MUgxNjciIHN0cm9rZT0iI2UwZTZkOCIvPjx0ZXh0IHg9IjM5IiB5PSI0ODEiIGZpbGw9IiNhOWIxOWYiIGZvbnQtc2l6ZT0iOSIgbGV0dGVyLXNwYWNpbmc9IjEuOCI+WU9VUiBMQUJFTFM8L3RleHQ+PGNpcmNsZSBjeD0iNDMiIGN5PSI1MTIiIHI9IjQiIGZpbGw9IiNkOWIyOGUiLz48dGV4dCB4PSI1NiIgeT0iNTE2IiBmaWxsPSIjOTM5Yjg3IiBmb250LXNpemU9IjExIj5Xb3JrIHRoaW5nczwvdGV4dD48Y2lyY2xlIGN4PSI0MyIgY3k9IjU0NiIgcj0iNCIgZmlsbD0iI2E1Yjk5NSIvPjx0ZXh0IHg9IjU2IiB5PSI1NTAiIGZpbGw9IiM5MzliODciIGZvbnQtc2l6ZT0iMTEiPkxpZmUgdGhpbmdzPC90ZXh0Pjx0ZXh0IHg9IjI5IiB5PSI3NjQiIGZpbGw9IiNhZGI1YTQiIGZvbnQtc2l6ZT0iOSI+QSBmaWN0aW9uYWwgaW5ib3guIE1hZGUgZm9yIHRoZSBkZW1vLjwvdGV4dD4NCjx0ZXh0IHg9IjIzNiIgeT0iOTgiIGZpbGw9IiNhMGE3OTkiIGZvbnQtc2l6ZT0iMTQiPuKGkDwvdGV4dD48cGF0aCBkPSJNMjY3IDg0djIwbS00LTE2aDhtLTcgMCAxIDEzaDRsMS0xMyIgc3Ryb2tlPSIjYjZiZGFmIiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTMwNCA4OGgxM3YxMWgtMTN6IiBzdHJva2U9IiNiNmJkYWYiIGZpbGw9Im5vbmUiLz48dGV4dCB4PSIxMjA4IiB5PSI5OCIgZmlsbD0iI2FmYjZhNCIgZm9udC1zaXplPSIxNCI+wrfCt8K3PC90ZXh0PjxwYXRoIGQ9Ik0yMjggMTIySDEyNDkiIHN0cm9rZT0iI2VlZjBlYSIvPg0KPHRleHQgeD0iMjQxIiB5PSIxNjUiIGZpbGw9IiMzMDNjMmEiIGZvbnQtc2l6ZT0iMjUiIGZvbnQtd2VpZ2h0PSI2MDAiPllvdXIgRmllbGRub3RlcyB3b3Jrc3BhY2UgaXMgcmVhZHkuPC90ZXh0PjxyZWN0IHg9Ijc3MiIgeT0iMTQ0IiB3aWR0aD0iNTUiIGhlaWdodD0iMjAiIHJ4PSI0IiBmaWxsPSIjZWRmMGU3Ii8+PHRleHQgeD0iNzk5IiB5PSIxNTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM5MWExN2QiIGZvbnQtc2l6ZT0iOSI+SW5ib3g8L3RleHQ+DQo8Y2lyY2xlIGN4PSIyNTgiIGN5PSIyMTEiIHI9IjE4IiBmaWxsPSIjZWVlN2RhIi8+PHRleHQgeD0iMjU4IiB5PSIyMTYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNhMzhiNjgiIGZvbnQtc2l6ZT0iMTIiPko8L3RleHQ+PHRleHQgeD0iMjkwIiB5PSIyMDUiIGZpbGw9IiM1MTVlNDciIGZvbnQtc2l6ZT0iMTIiIGZvbnQtd2VpZ2h0PSI2MDAiPkphbWllIGF0IE5vcnRoc3RhcjwvdGV4dD48dGV4dCB4PSIyOTAiIHk9IjIyNCIgZmlsbD0iI2E3YWQ5ZCIgZm9udC1zaXplPSIxMCI+dG8gQWxleCBNb3JnYW4gwrcgYWxleC5tb3JnYW5AZXhhbXBsZS5jb208L3RleHQ+PHRleHQgeD0iMTE1NyIgeT0iMjA2IiBmaWxsPSIjYTRhYzk4IiBmb250LXNpemU9IjEwIiB0ZXh0LWFuY2hvcj0iZW5kIj5Ub2RheSwgOTo0MSBBTTwvdGV4dD4NCjxyZWN0IHg9IjI4OSIgeT0iMjU3IiB3aWR0aD0iODc3IiBoZWlnaHQ9IjEzMSIgcng9IjkiIGZpbGw9IiNmMWY0ZWIiLz48cGF0aCBkPSJtMzM4IDMwMCAxMyAyNS0yNi01IDI3LTIyLTUgMjctOS0yNSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjOGVhYTczIiBzdHJva2Utd2lkdGg9IjEuOCIvPjx0ZXh0IHg9IjM4MiIgeT0iMzEwIiBmaWxsPSIjNWU3NTQ4IiBmb250LXNpemU9IjEwIiBmb250LXdlaWdodD0iNjAwIiBsZXR0ZXItc3BhY2luZz0iMi40Ij5OT1JUSFNUQVIgU1RVRElPPC90ZXh0Pjx0ZXh0IHg9IjM4MiIgeT0iMzQ3IiBmaWxsPSIjMzk0YTJjIiBmb250LWZhbWlseT0iR2VvcmdpYSxzZXJpZiIgZm9udC1zaXplPSIyOSI+WW91ciB3b3Jrc3BhY2UgaXMgcmVhZHkuPC90ZXh0Pg0KPHRleHQgeD0iMjkwIiB5PSI0MzMiIGZpbGw9IiM1ODYzNGUiIGZvbnQtc2l6ZT0iMTQiPkhleSBBbGV4LDwvdGV4dD48dGV4dCB4PSIyOTAiIHk9IjQ2NyIgZmlsbD0iIzhiOTU4MSIgZm9udC1zaXplPSIxMyI+WW91ciB0ZWFtIGhhcyBzaGFyZWQgYSBwcm9qZWN0IGJyaWVmLiBQbGVhc2UgcmV2aWV3IGl0IGJlZm9yZSB0aGUgbmV4dCBtZWV0aW5nLjwvdGV4dD4NCjxyZWN0IHg9IjI5MCIgeT0iNDk3IiB3aWR0aD0iODc3IiBoZWlnaHQ9IjcxIiByeD0iNyIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjZTVlYWRmIi8+PHJlY3QgeD0iMzEwIiB5PSI1MTQiIHdpZHRoPSIzNiIgaGVpZ2h0PSIzNiIgcng9IjUiIGZpbGw9IiNmNWVlZTEiLz48cGF0aCBkPSJNMzIwIDUyNWgxNm0tMTYgNWgxMG0tMTAgNWgxMyIgc3Ryb2tlPSIjYmZhNDdiIiBzdHJva2Utd2lkdGg9IjEuNSIvPjx0ZXh0IHg9IjM2MyIgeT0iNTI3IiBmaWxsPSIjNjQ3NTU0IiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iNjAwIj5UaGUgRmllbGRub3RlcyBwcm9qZWN0PC90ZXh0Pjx0ZXh0IHg9IjM2MyIgeT0iNTQ3IiBmaWxsPSIjYTNhYzk1IiBmb250LXNpemU9IjEwIj5DcmVhdGl2ZSBicmllZiDCtyAzIHBhZ2VzIMK3IFJlYWR5IGZvciB5b3VyIHRob3VnaHRzPC90ZXh0Pjx0ZXh0IHg9IjExMDAiIHk9IjUzOSIgZmlsbD0iI2E2YjE5OCIgZm9udC1zaXplPSIyMiI+4oaXPC90ZXh0Pg0KPHRleHQgeD0iMjkwIiB5PSI2MTAiIGZpbGw9IiM5MjliODUiIGZvbnQtc2l6ZT0iMTIiPllvdXIgcHJpdmF0ZSB3b3Jrc3BhY2UgY29kZTo8L3RleHQ+PHRleHQgeD0iNDg2IiB5PSI2MTAiIGZpbGw9IiM2NTc2NTMiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTMiPk5PUlRIU1RBUi0wODI0LVBSSVZBVEU8L3RleHQ+DQo8dGV4dCB4PSIyOTAiIHk9IjY1OCIgZmlsbD0iIzhiOTU4MSIgZm9udC1zaXplPSIxMyI+T3BlbiB0aGUgYnJpZWYgYW5kIGxlYXZlIHlvdXIgZmVlZGJhY2sgd2hlbiByZWFkeS48L3RleHQ+PHRleHQgeD0iMjkwIiB5PSI2OTYiIGZpbGw9IiM2YzdkNWEiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLHNlcmlmIiBmb250LXNpemU9IjIxIiBmb250LXN0eWxlPSJpdGFsaWMiPkphbWllPC90ZXh0PjxwYXRoIGQ9Ik0yOTAgNzI0SDExNjciIHN0cm9rZT0iI2VkZjBlNyIvPjx0ZXh0IHg9IjI5MCIgeT0iNzQ4IiBmaWxsPSIjYjBiOGE0IiBmb250LXNpemU9IjkiPk5vcnRoc3RhciBTdHVkaW8gwrcgQW4gaW1hZ2luYXJ5IGNvbXBhbnkgd2l0aCBpbWFnaW5hcnkgZGV0YWlscy48L3RleHQ+PHJlY3QgeD0iMjg5IiB5PSI3NjgiIHdpZHRoPSI4OSIgaGVpZ2h0PSIyMyIgcng9IjQiIGZpbGw9IiNmNGY2ZjAiLz48dGV4dCB4PSIzMzMiIHk9Ijc4NCIgZmlsbD0iIzliYTU4YyIgZm9udC1zaXplPSI5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7ihqkgUmVwbHk8L3RleHQ+DQo8L2c+PC9zdmc+DQo=", 'Example screenshot.png', true)));
+
+$('export-button').addEventListener('click', () => {
+  if (!state.image) return;
+  cancelDrag(); compare(false); updateUI();
+  const covers = state.shapes.filter(s => s.type === 'redact').length;
+  const pins = state.shapes.length - covers;
+  $('review-size').textContent = `${canvas.width.toLocaleString()} × ${canvas.height.toLocaleString()} px`;
+  $('review-edits').textContent = `${covers} ${covers === 1 ? 'cover' : 'covers'} · ${pins} ${pins === 1 ? 'pin' : 'pins'}`;
+  $('review-checkbox').checked = false;
+  $('download-button').disabled = true;
+  $('export-dialog').showModal();
+});
+$('review-checkbox').addEventListener('change', () => { $('download-button').disabled = !$('review-checkbox').checked; });
+$('download-button').addEventListener('click', async () => {
+  if (!$('review-checkbox').checked || !state.image) return;
+  $('download-button').disabled = true;
+  const exportCanvas = document.createElement('canvas');
+  const snapshot = structuredClone(state.shapes);
+  try {
+    exportCanvas.width = state.image.naturalWidth; exportCanvas.height = state.image.naturalHeight;
+    drawComposite(exportCanvas.getContext('2d'), state.image, snapshot, exportCanvas.width, exportCanvas.height);
+    const blob = await new Promise(resolve => exportCanvas.toBlob(resolve, 'image/png'));
+    if (!blob) throw new Error('No image data');
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a'); link.href = url; link.download = exportFilename(state.name); link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 30000);
+    state.exported = JSON.stringify(snapshot);
+    $('export-dialog').close(); toast('PNG download started. Your covers are baked into the image.');
+  } catch { toast('Export didn’t finish. Try a smaller image and export again.'); }
+  finally { exportCanvas.width = 0; exportCanvas.height = 0; $('download-button').disabled = !$('review-checkbox').checked; }
+});
+
+document.addEventListener('keydown', event => {
+  const target = event.target;
+  if (target instanceof HTMLElement && (target.isContentEditable || ['INPUT','TEXTAREA','SELECT'].includes(target.tagName))) return;
+  if (document.querySelector('dialog[open]')) return;
+  const key = event.key.toLowerCase();
+  const modified = event.ctrlKey || event.metaKey;
+  if (modified && key === 'z') { event.preventDefault(); event.shiftKey ? redo() : undo(); return; }
+  if (modified && key === 'y') { event.preventDefault(); redo(); return; }
+  if (modified) return;
+  if (key === 'escape') { cancelDrag(); compare(false); state.selected = null; updateUI(); }
+  if (key === 'r') setTool('redact');
+  if (key === 'n') setTool('marker');
+  if (key === 'v') setTool('select');
+  if ((key === 'delete' || key === 'backspace') && state.selected) { event.preventDefault(); deleteShape(state.selected); }
+  if (key === '+' || key === '=') { event.preventDefault(); zoomTo(state.zoom * 1.25); }
+  if (key === '-') { event.preventDefault(); zoomTo(state.zoom / 1.25); }
+  if (key.startsWith('arrow') && state.selected) {
+    event.preventDefault(); cancelDrag();
+    const d = event.shiftKey ? 10 : 1;
+    state.shapes = state.shapes.map(s => s.id === state.selected ? moveShape(s, key === 'arrowright' ? d : key === 'arrowleft' ? -d : 0, key === 'arrowdown' ? d : key === 'arrowup' ? -d : 0, canvas.width, canvas.height) : s);
+    commit();
+  }
+});
+
+window.addEventListener('beforeunload', event => {
+  if (!state.example && state.shapes.length && JSON.stringify(state.shapes) !== state.exported) { event.preventDefault(); event.returnValue = ''; }
+});
+loadImage("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjgwIiBoZWlnaHQ9IjgwMCIgdmlld0JveD0iMCAwIDEyODAgODAwIj4NCjxyZWN0IHdpZHRoPSIxMjgwIiBoZWlnaHQ9IjgwMCIgZmlsbD0iI2ZmZiIvPjxyZWN0IHdpZHRoPSIxMjgwIiBoZWlnaHQ9IjU3IiBmaWxsPSIjZmFmYWY4Ii8+PHBhdGggZD0iTTAgNTdIMTI4MCIgc3Ryb2tlPSIjZTdlOWU0Ii8+DQo8ZyBmaWxsPSIjZDNkN2NmIj48Y2lyY2xlIGN4PSIyNiIgY3k9IjI5IiByPSI1Ii8+PGNpcmNsZSBjeD0iNDQiIGN5PSIyOSIgcj0iNSIvPjxjaXJjbGUgY3g9IjYyIiBjeT0iMjkiIHI9IjUiLz48L2c+PHJlY3QgeD0iNDI3IiB5PSIxNiIgd2lkdGg9IjQyNyIgaGVpZ2h0PSIyNiIgcng9IjUiIGZpbGw9IiNlZmVmZWIiLz48dGV4dCB4PSI2NDAiIHk9IjM0IiBmaWxsPSIjOTY5ZDhlIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+bWFpbC5leGFtcGxlLmNvbSAvIGluYm94PC90ZXh0Pg0KPHJlY3QgeT0iNTgiIHdpZHRoPSIxOTgiIGhlaWdodD0iNzQyIiBmaWxsPSIjZjhmOWY2Ii8+PHBhdGggZD0iTTE5OCA1N1Y4MDAiIHN0cm9rZT0iI2U5ZWNlNCIvPg0KPGcgZm9udC1mYW1pbHk9IkFyaWFsLHNhbnMtc2VyaWYiPjxnIGZpbGw9IiMzZTU2MzUiPjxyZWN0IHg9IjI1IiB5PSI4NyIgd2lkdGg9IjI1IiBoZWlnaHQ9IjIwIiByeD0iNSIvPjxwYXRoIGQ9Im0zMCA5MyA3IDUgOC01IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMS41Ii8+PHRleHQgeD0iNjEiIHk9IjEwMyIgZm9udC1zaXplPSIxOCIgZm9udC13ZWlnaHQ9IjcwMCI+cG9zdGJveDwvdGV4dD48L2c+DQo8cmVjdCB4PSIxOSIgeT0iMTM3IiB3aWR0aD0iMTU3IiBoZWlnaHQ9IjM5IiByeD0iNyIgZmlsbD0iI2U5ZWVlMiIvPjx0ZXh0IHg9IjQwIiB5PSIxNjIiIGZpbGw9IiM2ODdkNTAiIGZvbnQtc2l6ZT0iMTIiIGZvbnQtd2VpZ2h0PSI2MDAiPisgQ29tcG9zZTwvdGV4dD4NCjxyZWN0IHg9IjEzIiB5PSIyMDYiIHdpZHRoPSIxNzQiIGhlaWdodD0iMzYiIHJ4PSI1IiBmaWxsPSIjZWVmMWU4Ii8+PHRleHQgeD0iMzkiIHk9IjIyOSIgZmlsbD0iIzVjNmY0NyIgZm9udC1zaXplPSIxMiIgZm9udC13ZWlnaHQ9IjYwMCI+SW5ib3g8L3RleHQ+PHJlY3QgeD0iMTQ1IiB5PSIyMTUiIHdpZHRoPSIyMyIgaGVpZ2h0PSIxOCIgcng9IjUiIGZpbGw9IiNkY2U1Y2YiLz48dGV4dCB4PSIxNTYiIHk9IjIyOCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzc0ODc1YSIgZm9udC1zaXplPSIxMCI+ODwvdGV4dD4NCjxnIGZpbGw9IiM5NzlmOGMiIGZvbnQtc2l6ZT0iMTIiPjx0ZXh0IHg9IjM5IiB5PSIyNzMiPlN0YXJyZWQ8L3RleHQ+PHRleHQgeD0iMzkiIHk9IjMxNiI+U2VudDwvdGV4dD48dGV4dCB4PSIzOSIgeT0iMzU5Ij5EcmFmdHM8L3RleHQ+PHRleHQgeD0iMzkiIHk9IjQwMiI+QXJjaGl2ZTwvdGV4dD48L2c+PHBhdGggZD0iTTI5IDQ0MUgxNjciIHN0cm9rZT0iI2UwZTZkOCIvPjx0ZXh0IHg9IjM5IiB5PSI0ODEiIGZpbGw9IiNhOWIxOWYiIGZvbnQtc2l6ZT0iOSIgbGV0dGVyLXNwYWNpbmc9IjEuOCI+WU9VUiBMQUJFTFM8L3RleHQ+PGNpcmNsZSBjeD0iNDMiIGN5PSI1MTIiIHI9IjQiIGZpbGw9IiNkOWIyOGUiLz48dGV4dCB4PSI1NiIgeT0iNTE2IiBmaWxsPSIjOTM5Yjg3IiBmb250LXNpemU9IjExIj5Xb3JrIHRoaW5nczwvdGV4dD48Y2lyY2xlIGN4PSI0MyIgY3k9IjU0NiIgcj0iNCIgZmlsbD0iI2E1Yjk5NSIvPjx0ZXh0IHg9IjU2IiB5PSI1NTAiIGZpbGw9IiM5MzliODciIGZvbnQtc2l6ZT0iMTEiPkxpZmUgdGhpbmdzPC90ZXh0Pjx0ZXh0IHg9IjI5IiB5PSI3NjQiIGZpbGw9IiNhZGI1YTQiIGZvbnQtc2l6ZT0iOSI+QSBmaWN0aW9uYWwgaW5ib3guIE1hZGUgZm9yIHRoZSBkZW1vLjwvdGV4dD4NCjx0ZXh0IHg9IjIzNiIgeT0iOTgiIGZpbGw9IiNhMGE3OTkiIGZvbnQtc2l6ZT0iMTQiPuKGkDwvdGV4dD48cGF0aCBkPSJNMjY3IDg0djIwbS00LTE2aDhtLTcgMCAxIDEzaDRsMS0xMyIgc3Ryb2tlPSIjYjZiZGFmIiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTMwNCA4OGgxM3YxMWgtMTN6IiBzdHJva2U9IiNiNmJkYWYiIGZpbGw9Im5vbmUiLz48dGV4dCB4PSIxMjA4IiB5PSI5OCIgZmlsbD0iI2FmYjZhNCIgZm9udC1zaXplPSIxNCI+wrfCt8K3PC90ZXh0PjxwYXRoIGQ9Ik0yMjggMTIySDEyNDkiIHN0cm9rZT0iI2VlZjBlYSIvPg0KPHRleHQgeD0iMjQxIiB5PSIxNjUiIGZpbGw9IiMzMDNjMmEiIGZvbnQtc2l6ZT0iMjUiIGZvbnQtd2VpZ2h0PSI2MDAiPllvdXIgRmllbGRub3RlcyB3b3Jrc3BhY2UgaXMgcmVhZHkuPC90ZXh0PjxyZWN0IHg9Ijc3MiIgeT0iMTQ0IiB3aWR0aD0iNTUiIGhlaWdodD0iMjAiIHJ4PSI0IiBmaWxsPSIjZWRmMGU3Ii8+PHRleHQgeD0iNzk5IiB5PSIxNTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM5MWExN2QiIGZvbnQtc2l6ZT0iOSI+SW5ib3g8L3RleHQ+DQo8Y2lyY2xlIGN4PSIyNTgiIGN5PSIyMTEiIHI9IjE4IiBmaWxsPSIjZWVlN2RhIi8+PHRleHQgeD0iMjU4IiB5PSIyMTYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNhMzhiNjgiIGZvbnQtc2l6ZT0iMTIiPko8L3RleHQ+PHRleHQgeD0iMjkwIiB5PSIyMDUiIGZpbGw9IiM1MTVlNDciIGZvbnQtc2l6ZT0iMTIiIGZvbnQtd2VpZ2h0PSI2MDAiPkphbWllIGF0IE5vcnRoc3RhcjwvdGV4dD48dGV4dCB4PSIyOTAiIHk9IjIyNCIgZmlsbD0iI2E3YWQ5ZCIgZm9udC1zaXplPSIxMCI+dG8gQWxleCBNb3JnYW4gwrcgYWxleC5tb3JnYW5AZXhhbXBsZS5jb208L3RleHQ+PHRleHQgeD0iMTE1NyIgeT0iMjA2IiBmaWxsPSIjYTRhYzk4IiBmb250LXNpemU9IjEwIiB0ZXh0LWFuY2hvcj0iZW5kIj5Ub2RheSwgOTo0MSBBTTwvdGV4dD4NCjxyZWN0IHg9IjI4OSIgeT0iMjU3IiB3aWR0aD0iODc3IiBoZWlnaHQ9IjEzMSIgcng9IjkiIGZpbGw9IiNmMWY0ZWIiLz48cGF0aCBkPSJtMzM4IDMwMCAxMyAyNS0yNi01IDI3LTIyLTUgMjctOS0yNSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjOGVhYTczIiBzdHJva2Utd2lkdGg9IjEuOCIvPjx0ZXh0IHg9IjM4MiIgeT0iMzEwIiBmaWxsPSIjNWU3NTQ4IiBmb250LXNpemU9IjEwIiBmb250LXdlaWdodD0iNjAwIiBsZXR0ZXItc3BhY2luZz0iMi40Ij5OT1JUSFNUQVIgU1RVRElPPC90ZXh0Pjx0ZXh0IHg9IjM4MiIgeT0iMzQ3IiBmaWxsPSIjMzk0YTJjIiBmb250LWZhbWlseT0iR2VvcmdpYSxzZXJpZiIgZm9udC1zaXplPSIyOSI+WW91ciB3b3Jrc3BhY2UgaXMgcmVhZHkuPC90ZXh0Pg0KPHRleHQgeD0iMjkwIiB5PSI0MzMiIGZpbGw9IiM1ODYzNGUiIGZvbnQtc2l6ZT0iMTQiPkhleSBBbGV4LDwvdGV4dD48dGV4dCB4PSIyOTAiIHk9IjQ2NyIgZmlsbD0iIzhiOTU4MSIgZm9udC1zaXplPSIxMyI+WW91ciB0ZWFtIGhhcyBzaGFyZWQgYSBwcm9qZWN0IGJyaWVmLiBQbGVhc2UgcmV2aWV3IGl0IGJlZm9yZSB0aGUgbmV4dCBtZWV0aW5nLjwvdGV4dD4NCjxyZWN0IHg9IjI5MCIgeT0iNDk3IiB3aWR0aD0iODc3IiBoZWlnaHQ9IjcxIiByeD0iNyIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjZTVlYWRmIi8+PHJlY3QgeD0iMzEwIiB5PSI1MTQiIHdpZHRoPSIzNiIgaGVpZ2h0PSIzNiIgcng9IjUiIGZpbGw9IiNmNWVlZTEiLz48cGF0aCBkPSJNMzIwIDUyNWgxNm0tMTYgNWgxMG0tMTAgNWgxMyIgc3Ryb2tlPSIjYmZhNDdiIiBzdHJva2Utd2lkdGg9IjEuNSIvPjx0ZXh0IHg9IjM2MyIgeT0iNTI3IiBmaWxsPSIjNjQ3NTU0IiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iNjAwIj5UaGUgRmllbGRub3RlcyBwcm9qZWN0PC90ZXh0Pjx0ZXh0IHg9IjM2MyIgeT0iNTQ3IiBmaWxsPSIjYTNhYzk1IiBmb250LXNpemU9IjEwIj5DcmVhdGl2ZSBicmllZiDCtyAzIHBhZ2VzIMK3IFJlYWR5IGZvciB5b3VyIHRob3VnaHRzPC90ZXh0Pjx0ZXh0IHg9IjExMDAiIHk9IjUzOSIgZmlsbD0iI2E2YjE5OCIgZm9udC1zaXplPSIyMiI+4oaXPC90ZXh0Pg0KPHRleHQgeD0iMjkwIiB5PSI2MTAiIGZpbGw9IiM5MjliODUiIGZvbnQtc2l6ZT0iMTIiPllvdXIgcHJpdmF0ZSB3b3Jrc3BhY2UgY29kZTo8L3RleHQ+PHRleHQgeD0iNDg2IiB5PSI2MTAiIGZpbGw9IiM2NTc2NTMiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTMiPk5PUlRIU1RBUi0wODI0LVBSSVZBVEU8L3RleHQ+DQo8dGV4dCB4PSIyOTAiIHk9IjY1OCIgZmlsbD0iIzhiOTU4MSIgZm9udC1zaXplPSIxMyI+T3BlbiB0aGUgYnJpZWYgYW5kIGxlYXZlIHlvdXIgZmVlZGJhY2sgd2hlbiByZWFkeS48L3RleHQ+PHRleHQgeD0iMjkwIiB5PSI2OTYiIGZpbGw9IiM2YzdkNWEiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLHNlcmlmIiBmb250LXNpemU9IjIxIiBmb250LXN0eWxlPSJpdGFsaWMiPkphbWllPC90ZXh0PjxwYXRoIGQ9Ik0yOTAgNzI0SDExNjciIHN0cm9rZT0iI2VkZjBlNyIvPjx0ZXh0IHg9IjI5MCIgeT0iNzQ4IiBmaWxsPSIjYjBiOGE0IiBmb250LXNpemU9IjkiPk5vcnRoc3RhciBTdHVkaW8gwrcgQW4gaW1hZ2luYXJ5IGNvbXBhbnkgd2l0aCBpbWFnaW5hcnkgZGV0YWlscy48L3RleHQ+PHJlY3QgeD0iMjg5IiB5PSI3NjgiIHdpZHRoPSI4OSIgaGVpZ2h0PSIyMyIgcng9IjQiIGZpbGw9IiNmNGY2ZjAiLz48dGV4dCB4PSIzMzMiIHk9Ijc4NCIgZmlsbD0iIzliYTU4YyIgZm9udC1zaXplPSI5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7ihqkgUmVwbHk8L3RleHQ+DQo8L2c+PC9zdmc+DQo=", 'Example screenshot.png', true);
+</script>
+</head>
+<body>
+  <svg class="icon-defs" aria-hidden="true"><defs>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4m-5 5 5-5 5 5M4 15v5h16v-5"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 5v2"/></symbol>
+    <symbol id="i-cover" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="1" fill="currentColor" stroke="none"/><path d="M7 3H3v3m14-3h4v3M3 18v3h4m14-3v3h-4"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m10 9 2-1v8m-2 0h4"/></symbol>
+    <symbol id="i-pointer" viewBox="0 0 24 24"><path d="m5 3 14 10-7 1-3 7Z"/></symbol>
+    <symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 6 4 11l5 5m-5-5h10a6 6 0 0 1 6 6"/></symbol>
+    <symbol id="i-redo" viewBox="0 0 24 24"><path d="m15 6 5 5-5 5m5-5H10a6 6 0 0 0-6 6"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 6h16M9 6V3h6v3M6 6l1 15h10l1-15M10 10v7m4-7v7"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.5"/><path d="m3 17 6-6 5 5 3-3 4 4"/></symbol>
+    <symbol id="i-cross" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6Z"/><path d="m8 12 3 3 5-6"/></symbol>
+  </defs></svg>
+
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="ShareSafe home"><span class="brand-mark"><i></i><i></i><i></i><i></i></span>sharesafe<span class="brand-dot">.</span></a>
+    <span class="header-divider"></span><span class="header-caption">Screenshot privacy editor</span>
+    <div class="header-right"><span class="local-pill"><span></span>Local processing</span><button class="text-button" id="help-button">How it works <svg><use href="#i-arrow"/></svg></button></div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <div><div class="eyebrow"><span class="tiny-square"></span>SHARESAFE</div><h1>Redact screenshots<span>.</span></h1><p>Hide private details. Add numbered pins. Export a PNG.</p></div>
+      <div class="intro-note"><svg><use href="#i-shield"/></svg><p>Your image is processed in this tab.<br><strong>PNG, JPG and WebP · up to 25 MB</strong></p></div>
+    </section>
+
+    <section class="studio" aria-label="Screenshot editor">
+      <aside class="sidebar">
+        <div class="sidebar-block source-block">
+          <div class="section-label"><span>IMAGE</span></div>
+          <button class="upload-button" id="upload-button"><svg><use href="#i-upload"/></svg><span>Open a screenshot</span><span class="small-plus">+</span></button>
+          <p class="helper">or drop it anywhere · <kbd>Ctrl</kbd> + <kbd>V</kbd></p>
+          <input id="file-input" type="file" accept="image/png,image/jpeg,image/webp" hidden>
+          <div class="file-card"><span class="file-icon"><svg><use href="#i-image"/></svg></span><div><strong id="file-name">Example screenshot.png</strong><span id="file-meta">1280 × 800 · example image</span></div><span class="file-dot"></span></div>
+        </div>
+
+        <div class="sidebar-block">
+          <div class="section-label"><span>TOOLS</span></div>
+          <div class="tool-stack" role="group" aria-label="Editing tools">
+            <button class="tool active" data-tool="redact" aria-pressed="true"><span class="tool-symbol"><svg><use href="#i-cover"/></svg></span><span><strong>Redact</strong><small>Draw a solid cover</small></span><kbd>R</kbd></button>
+            <button class="tool" data-tool="marker" aria-pressed="false"><span class="tool-symbol"><svg><use href="#i-pin"/></svg></span><span><strong>Number</strong><small>Add a numbered pin</small></span><kbd>N</kbd></button>
+            <button class="tool" data-tool="select" aria-pressed="false"><span class="tool-symbol"><svg><use href="#i-pointer"/></svg></span><span><strong>Select & move</strong><small>Move or resize an edit</small></span><kbd>V</kbd></button>
+          </div>
+          <div class="color-setting"><span>Cover color</span><div class="swatches" role="group" aria-label="Redaction color"><button class="swatch selected" data-color="ink" aria-label="Ink" aria-pressed="true"></button><button class="swatch" data-color="paper" aria-label="Paper" aria-pressed="false"></button><button class="swatch" data-color="coral" aria-label="Coral" aria-pressed="false"></button></div></div>
+          <p class="solid-note"><svg><use href="#i-lock"/></svg>Solid color covers</p>
+        </div>
+
+        <div class="sidebar-block edits-block">
+          <div class="edits-heading"><div class="section-label"><span>EDITS</span></div><span class="count-badge" id="edit-count">0</span></div>
+          <div id="edit-list" class="edit-list" aria-label="Edits"></div>
+          <p id="empty-edits" class="empty-edits">Draw a cover or add a numbered pin.</p>
+          <button id="clear-button" class="clear-button" disabled>Clear all edits</button>
+        </div>
+
+        <div class="privacy-card"><span class="privacy-icon"><svg><use href="#i-lock"/></svg></span><div><strong>No image uploads</strong><p>Edits stay in this tab until you export.</p></div></div>
+      </aside>
+
+      <div class="workbench">
+        <div class="workspace-toolbar">
+          <div class="document-title"><span class="document-dot"></span><strong id="document-name">Your canvas</strong><span id="example-badge" class="example-badge">EXAMPLE</span></div>
+          <div class="toolbar-actions"><button class="icon-button" id="undo-button" aria-label="Undo" title="Undo (Ctrl+Z)" disabled><svg><use href="#i-undo"/></svg></button><button class="icon-button" id="redo-button" aria-label="Redo" title="Redo (Ctrl+Shift+Z)" disabled><svg><use href="#i-redo"/></svg></button><button class="icon-button" id="delete-selected" aria-label="Delete selected edit" title="Delete selected edit" disabled><svg><use href="#i-trash"/></svg></button><span class="toolbar-divider"></span><button id="compare-button" class="compare-button" aria-label="Hold to compare"><svg><use href="#i-eye"/></svg><span>Hold to compare</span></button></div>
+        </div>
+
+        <div class="canvas-viewport" id="viewport">
+          <div class="canvas-surface" id="surface"><div class="image-frame" id="image-frame"><canvas id="editor-canvas" tabindex="0" aria-label="Screenshot editing canvas. Use Redact and drag to cover an area, or Number and click to add an annotation."></canvas><span id="original-label" class="original-label" hidden>ORIGINAL · RELEASE TO RETURN</span></div></div>
+          <div class="drop-curtain" id="drop-curtain" hidden><span class="drop-icon"><svg><use href="#i-upload"/></svg></span><strong>Drop an image here</strong><span>PNG, JPG or WebP · up to 25 MB</span></div>
+        </div>
+
+        <div class="workspace-bottom"><span class="tool-tip" id="tool-tip"><svg><use href="#i-cover"/></svg>Drag a box over anything private.</span><div class="zoom-controls"><button id="zoom-out" aria-label="Zoom out">−</button><span id="zoom-label">Fit</span><button id="zoom-in" aria-label="Zoom in">+</button><span></span><button class="fit-button" id="fit-button" title="Fit image to workspace">Fit</button></div></div>
+        <div class="export-strip"><div><span class="export-label">EXPORT</span><strong id="export-summary">Original resolution · PNG</strong></div><button class="export-button" id="export-button">Export PNG <svg><use href="#i-download"/></svg></button></div>
+      </div>
+    </section>
+
+    <footer><span>Review the full image before sharing.</span><div><span class="footer-dot"></span>Browser-local editing<span class="footer-separator">/</span>Full-resolution PNG<span class="footer-separator">/</span><button id="example-button">Try the example <span>↗</span></button></div></footer>
+  </main>
+
+  <dialog id="help-dialog"><button class="dialog-close icon-button" data-close aria-label="Close help"><svg><use href="#i-cross"/></svg></button><span class="eyebrow">HOW IT WORKS</span><h2>Edit and export</h2><ol class="help-steps"><li><b>Open an image</b><span>Choose a PNG, JPG or WebP, drop it here, or paste it with Ctrl/⌘+V.</span></li><li><b>Cover and annotate</b><span>Drag to redact. Click to number. Use Select to move an edit or resize a cover from a corner.</span></li><li><b>Review and export</b><span>Hold Compare to check the original. Export saves a full-resolution PNG with the covers flattened into the image.</span></li></ol><p class="dialog-note">ShareSafe does not detect private details automatically. Review the whole image before sharing. Your edits stay in this tab and are lost when it closes.</p><button class="dark-button" data-close>Start editing <svg><use href="#i-arrow"/></svg></button></dialog>
+
+  <dialog id="export-dialog"><button class="dialog-close icon-button" data-close aria-label="Close export"><svg><use href="#i-cross"/></svg></button><div class="export-check"><svg><use href="#i-check"/></svg></div><span class="eyebrow">EXPORT PNG</span><h2>Review your image</h2><p>Check names, messages, addresses and other private details before downloading.</p><div class="export-details"><div><span>Image size</span><strong id="review-size"></strong></div><div><span>Your edits</span><strong id="review-edits"></strong></div><div><span>Format</span><strong>PNG · flattened pixels</strong></div></div><label class="review-checkbox"><input type="checkbox" id="review-checkbox">I’ve checked the image for private details.</label><button class="dark-button" id="download-button" disabled>Download PNG <svg><use href="#i-download"/></svg></button><p class="fine-print">The PNG has no original file or undo history attached.</p></dialog>
+
+  <dialog id="replace-dialog"><button class="dialog-close icon-button" data-close aria-label="Cancel replacement"><svg><use href="#i-cross"/></svg></button><span class="eyebrow">A FRESH CANVAS</span><h2>Switch images?</h2><p>Your current edits will be cleared. Export first if you want to keep this version.</p><div class="dialog-button-row"><button class="secondary-button" data-close>Keep editing</button><button class="dark-button" id="confirm-replace">Open new image</button></div></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
